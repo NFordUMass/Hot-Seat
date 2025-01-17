@@ -11,6 +11,8 @@ export const prerender = false;
 let frameworks;
 let frameworksError;
 
+console.log("hi");
+
 // Fetch frameworks data from Supabase if connection is set up
 if (supabase) {
   const { data, error } = await supabase
@@ -32,7 +34,7 @@ const fetchDataGuide = await getEntry("guides", "guide-fetch-data");
       frameworks ? (
         <>
           <h1 class="mb-8 text-4xl font-bold">
-            Vote for Your Favorite Web Framework
+            Who is on the Hot Seat of NFL Head Coaches?
           </h1>
           <table class="w-full text-left">
             <thead>
