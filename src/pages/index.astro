@@ -26,7 +26,7 @@ const connectGuide = await getEntry("guides", "guide-connect-supabase");
 const fetchDataGuide = await getEntry("guides", "guide-fetch-data");
 ---
 
-<Layout title="Web Frameworks">
+<Layout title="Hot Seat">
   {
     supabase ? (
       frameworks ? (
@@ -63,7 +63,10 @@ const fetchDataGuide = await getEntry("guides", "guide-fetch-data");
       )
     ) : (
       <>
-        <Alert title="Finish setting up your new site" text="Before your website is ready, you must complete the steps from the guide below to create, populate, and connect your Supabase database."/>
+        <Alert
+          title="Finish setting up your new site"
+          text="Before your website is ready, you must complete the steps from the guide below to create, populate, and connect your Supabase database."
+        />
         {connectGuide && <Guide guide={connectGuide} />}
       </>
     )
