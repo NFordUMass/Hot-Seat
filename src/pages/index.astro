@@ -11,6 +11,8 @@ export const prerender = false;
 let frameworks;
 let frameworksError;
 
+console.log("hi");
+
 // Fetch frameworks data from Supabase if connection is set up
 if (supabase) {
   const { data, error } = await supabase
@@ -26,13 +28,13 @@ const connectGuide = await getEntry("guides", "guide-connect-supabase");
 const fetchDataGuide = await getEntry("guides", "guide-fetch-data");
 ---
 
-<Layout title="Web Frameworks">
+<Layout title="Hot Seat">
   {
     supabase ? (
       frameworks ? (
         <>
           <h1 class="mb-8 text-4xl font-bold">
-            Vote for Your Favorite Web Framework
+            Who is on the Hot Seat of NFL Head Coaches?
           </h1>
           <table class="w-full text-left">
             <thead>
@@ -63,7 +65,10 @@ const fetchDataGuide = await getEntry("guides", "guide-fetch-data");
       )
     ) : (
       <>
-        <Alert title="Finish setting up your new site" text="Before your website is ready, you must complete the steps from the guide below to create, populate, and connect your Supabase database."/>
+        <Alert
+          title="Finish setting up your new site"
+          text="Before your website is ready, you must complete the steps from the guide below to create, populate, and connect your Supabase database."
+        />
         {connectGuide && <Guide guide={connectGuide} />}
       </>
     )
