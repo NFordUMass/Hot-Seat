@@ -1,0 +1,22 @@
+---
+import type { Tables } from "../../supabase/types.ts";
+import { imgPath } from "../utils/database";
+
+interface Props {
+  current: Tables<"current">;
+}
+
+const { current } = Astro.props;
+---
+
+<tr class="border-b border-neutral-600">
+  <td>
+    <img
+      src={imgPath("nfl", current.team, 2024)}
+      class="w-16"
+      alt={current.team}
+    />
+  </td>
+  <td class="text-xl font-bold">{current.name}</td>
+  <td class="text-xl">{current["fire %"].toPrecision(3)}</td>
+</tr>

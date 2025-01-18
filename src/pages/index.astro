@@ -3,10 +3,12 @@ import { getEntry } from "astro:content";
 import Alert from "../components/Alert.astro";
 import Guide from "../components/Guide.astro";
 import Layout from "../components/Layout.astro";
-import TableRow from "../components/TableRow.astro";
 import { supabase } from "../utils/database";
+import CurrentRow from "../components/CurrentRow.astro";
 
 export const prerender = false;
+
+const tableName = "current";
 
 let frameworks;
 let frameworksError;
@@ -15,10 +17,7 @@ console.log("hi");
 
 // Fetch frameworks data from Supabase if connection is set up
 if (supabase) {
-  const { data, error } = await supabase
-    .from("frameworks")
-    .select("*")
-    .order("likes", { ascending: false });
+  const { data, error } = await supabase.from(tableName).select("*");
   frameworks = data;
   frameworksError = error;
 }
@@ -39,37 +38,30 @@ const fetchDataGuide = await getEntry("guides", "guide-fetch-data");
           <table class="w-full text-left">
             <thead>
               <tr class="font-mono text-base border-t border-b">
-                <th>Name</th>
-                <th>Logo</th>
-                <th>Likes</th>
+                <th>Coach</th>
+                <th>Team</th>
+                <th>Fire %</th>
               </tr>
             </thead>
             <tbody>
               {frameworks?.map((framework) => (
-                <TableRow framework={framework} />
+                <CurrentRow current={framework} />
               ))}
             </tbody>
           </table>
         </>
       ) : (
-        <>
-          {frameworksError && (
-            <Alert
-              title={frameworksError.code}
-              text={frameworksError.message}
-              variant="error"
-            />
-          )}
-          {fetchDataGuide && <Guide guide={fetchDataGuide} />}
-        </>
+        <Alert
+          title="Oh no!"
+          text={`connected to supabase, but cannot find table: ${tableName}`}
+        />
       )
     ) : (
       <>
         <Alert
-          title="Finish setting up your new site"
-          text="Before your website is ready, you must complete the steps from the guide below to create, populate, and connect your Supabase database."
+          title="Not connected to supabase"
+          text="Please attempt to reconfigure"
         />
-        {connectGuide && <Guide guide={connectGuide} />}
       </>
     )
   }

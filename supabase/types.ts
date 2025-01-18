@@ -39,6 +39,24 @@ export type Database = {
         };
         Relationships: [];
       };
+      current: {
+        Row: {
+          name: string;
+          team: string;
+          'fire %': number;
+        };
+        Insert: {
+          name: string;
+          team: string;
+          'fire %': number;
+        };
+        Update: {
+          name: string;
+          team: string;
+          'fire %': number;
+        };
+        Relationships: [];
+      };
     };
     Views: {
       [_ in never]: never;
