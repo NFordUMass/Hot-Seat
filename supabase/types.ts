@@ -44,16 +44,19 @@ export type Database = {
           name: string;
           team: string;
           prob: number;
+          id: string;
         };
         Insert: {
           name: string;
           team: string;
           prob: number;
+          id: string;
         };
         Update: {
           name: string;
           team: string;
           prob: number;
+          id: string;
         };
         Relationships: [];
       };
