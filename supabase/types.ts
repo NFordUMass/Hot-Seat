@@ -43,17 +43,17 @@ export type Database = {
         Row: {
           name: string;
           team: string;
-          'fire %': number;
+          prob: number;
         };
         Insert: {
           name: string;
           team: string;
-          'fire %': number;
+          prob: number;
         };
         Update: {
           name: string;
           team: string;
-          'fire %': number;
+          prob: number;
         };
         Relationships: [];
       };
