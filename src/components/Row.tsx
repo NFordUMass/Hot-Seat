@@ -16,10 +16,7 @@ const CurrentRow: React.FC<Props> = ({ current }) => {
         />
       </td>
       <td className="text-xl font-bold">{current.name}</td>
-      <td className="text-xl">
-        {(current.prob * 100).toPrecision(3)}
-        <span className="text-base">%</span>
-      </td>
+      <td className="text-xl">{current.prob.toFixed(2)}</td>
     </tr>
   );
 };
