@@ -4,7 +4,8 @@ import Alert from "../components/Alert.astro";
 import Guide from "../components/Guide.astro";
 import Layout from "../components/Layout.astro";
 import { supabase } from "../utils/database";
-import CurrentRow from "../components/CurrentRow.astro";
+import Row from "../components/Row.tsx";
+import Table from "../components/Table.tsx";
 
 export const prerender = false;
 
@@ -35,20 +36,7 @@ const fetchDataGuide = await getEntry("guides", "guide-fetch-data");
           <h1 class="mb-8 text-4xl font-bold">
             Who is on the Hot Seat of NFL Head Coaches?
           </h1>
-          <table class="w-full text-left">
-            <thead>
-              <tr class="font-mono text-base border-t border-b">
-                <th>Coach</th>
-                <th>Team</th>
-                <th>Fire %</th>
-              </tr>
-            </thead>
-            <tbody>
-              {frameworks?.map((framework) => (
-                <CurrentRow current={framework} />
-              ))}
-            </tbody>
-          </table>
+          <Table source={frameworks} client:load />
         </>
       ) : (
         <Alert
