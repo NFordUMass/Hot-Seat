@@ -29,7 +29,7 @@ const CoachesTable: React.FC<Props> = ({ source }) => {
         <tr className="font-mono text-base border-t border-b">
           <th onClick={() => handleSort("team")}>Team</th>
           <th onClick={() => handleSort("name")}>Coach</th>
-          <th onClick={() => handleSort("prob")}>Fire %</th>
+          <th onClick={() => handleSort("prob")}>Heat Index</th>
         </tr>
       </thead>
       <tbody>
