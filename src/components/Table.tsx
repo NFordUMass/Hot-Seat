@@ -28,9 +28,16 @@ export default function Heat_Table({ source }: Props) {
     <table className="w-full text-left">
       <thead>
         <tr className="font-mono text-base border-t border-b">
-          <th onClick={() => handleSort("team")}>Team</th>
-          <th onClick={() => handleSort("name")}>Coach</th>
-          <th onClick={() => handleSort("prob")}>Heat Index</th>
+          {[
+            { column: "year", label: "Year" },
+            { column: "team", label: "Team" },
+            { column: "name", label: "Coach" },
+            { column: "prob", label: "Heat Index" },
+          ].map((col) => (
+            <th onClick={() => handleSort(col.column as sortkey)}>
+              {col.label}
+            </th>
+          ))}
         </tr>
       </thead>
       <tbody>

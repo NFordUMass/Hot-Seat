@@ -8,6 +8,7 @@ interface Props {
 const CurrentRow: React.FC<Props> = ({ current }) => {
   return (
     <tr className="border-b border-neutral-600">
+      <td className="text-xl">{current.year}</td>
       <td>
         <img
           src={imgPath("nfl", current.team, 2024)}

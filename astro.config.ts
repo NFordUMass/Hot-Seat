@@ -16,12 +16,4 @@ export default defineConfig({
       react()
   ],
   adapter: netlify(),
-  vite: {
-    optimizeDeps: {
-      include: ['@mui/material', '@emotion/react', '@emotion/styled'],
-    },
-    ssr: {
-      noExternal: ['@mui/material', '@emotion/react', '@emotion/styled'],
-    },
-  },
 });
