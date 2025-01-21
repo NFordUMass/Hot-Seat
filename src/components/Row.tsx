@@ -2,7 +2,7 @@ import type { Tables } from "../../supabase/types.ts";
 import { imgPath } from "../utils/database";
 
 interface Props {
-  current: Tables<"current">;
+  current: Tables<"heat_index">;
 }
 
 const CurrentRow: React.FC<Props> = ({ current }) => {
