@@ -15,5 +15,5 @@ export default defineConfig({
       }),
       react()
   ],
-  adapter: netlify()
+  adapter: netlify(),
 });

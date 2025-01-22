@@ -5,16 +5,14 @@ import Guide from "../components/Guide.astro";
 import Layout from "../components/Layout.astro";
 import { supabase } from "../utils/database";
 import Row from "../components/Row.tsx";
-import Table from "../components/Table.tsx";
+import Table_Wrapper from "../components/Table_Wrapper";
 
 export const prerender = false;
 
-const tableName = "current";
+const tableName = "heat_index";
 
 let frameworks;
 let frameworksError;
-
-console.log("hi");
 
 // Fetch frameworks data from Supabase if connection is set up
 if (supabase) {
@@ -36,7 +34,7 @@ const fetchDataGuide = await getEntry("guides", "guide-fetch-data");
           <h1 class="mb-8 text-4xl font-bold">
             Who is on the Hot Seat of NFL Head Coaches?
           </h1>
-          <Table source={frameworks} client:load />
+          <Table_Wrapper source={frameworks} client:load />
         </>
       ) : (
         <Alert

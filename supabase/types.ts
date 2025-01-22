@@ -39,24 +39,30 @@ export type Database = {
         };
         Relationships: [];
       };
-      current: {
+      heat_index: {
         Row: {
+          year: number;
           name: string;
           team: string;
           prob: number;
           id: string;
+          fired: number;
         };
         Insert: {
+          year: number;
           name: string;
           team: string;
           prob: number;
           id: string;
+          fired: number;
         };
         Update: {
+          year: number;
           name: string;
           team: string;
           prob: number;
           id: string;
+          fired: number;
         };
         Relationships: [];
       };
