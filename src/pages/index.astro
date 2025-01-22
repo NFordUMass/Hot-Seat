@@ -35,7 +35,7 @@ const fetchDataGuide = await getEntry("guides", "guide-fetch-data");
           <h1 class="mb-8 text-4xl font-bold">
             Who is on the Hot Seat of NFL Head Coaches?
           </h1>
-          <Heat_Table source={heat_index} client:load />
+          <Heat_Table year={2024} source={heat_index} client:load />
         </>
       ) : (
         <Alert
