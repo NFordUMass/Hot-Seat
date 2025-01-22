@@ -3,11 +3,10 @@
 import Dropdown from "react-bootstrap/Dropdown";
 
 interface Props {
-  year: number;
   setYear: (year: number) => void;
 }
 
-export default function Drop_Down({ year, setYear }: Props) {
+export default function Drop_Down({ setYear }: Props) {
   return (
     <Dropdown className="my-8   ">
       <Dropdown.Toggle
