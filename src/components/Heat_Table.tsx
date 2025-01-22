@@ -48,11 +48,7 @@ export default function Heat_Table({ source }: Props) {
         </tr>
       </thead>
       <tbody>
-<<<<<<< HEAD
         {coaches?.map((row, index) => (
-=======
-        {coaches.map((row, index) => (
->>>>>>> redo-pr
           <CurrentRow key={`${row.id}_${row.year}`} current={row} />
         ))}
       </tbody>
