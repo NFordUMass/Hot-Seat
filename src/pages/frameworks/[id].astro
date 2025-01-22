@@ -14,7 +14,7 @@ if (!id) {
 let framework;
 if (supabase) {
   const { data, error } = await supabase
-    .from("frameworks")
+    .from("heat_index")
     .select("*")
     .eq("id", id)
     .single();
@@ -32,30 +32,22 @@ if (supabase) {
       class="flex flex-wrap items-center justify-between pb-2 mb-8 border-b"
     >
       <h1 class="mb-4 text-5xl font-bold">{framework?.name}</h1>
-      <a href={framework?.url} class="underline">Website &#8599;</a>
     </header>
 
     <figure>
-      <img
-        src={`/.netlify/images?url=/images/${framework?.logo}`}
-        alt={framework?.name}
-        class="mb-2 border rounded border-neutral-500"
-      />
       <figcaption class="font-mono text-xs">{framework?.name} logo</figcaption>
     </figure>
 
-    <p class="py-6 text-xl">{framework?.description}</p>
+    <p class="py-6 text-xl">{framework?.prob}</p>
 
     <form action={`/api/frameworks/${framework?.id}/like`} method="post">
       <h2 class="mb-2 text-2xl">Like {framework?.name}!</h2>
 
-      <p class="mb-4">
-        {framework?.name} has {framework?.likes} like{
-          framework?.likes === 1 ? "" : "s"
-        }.
-      </p>
-
-      <button type="submit" class="px-4 py-2 bg-green-500 rounded text-neutral-800 hover:bg-green-600">Give {framework?.name} your vote &starf;</button>
+      <button
+        type="submit"
+        class="px-4 py-2 bg-green-500 rounded text-neutral-800 hover:bg-green-600"
+        >Give {framework?.name} your vote &starf;</button
+      >
     </form>
   </article>
 </Layout>

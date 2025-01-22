@@ -1,5 +1,3 @@
-"use client";
-
 import { useEffect, useState } from "react";
 import type { Tables } from "../../supabase/types.ts";
 import CurrentRow from "./Row.tsx";
@@ -8,7 +6,7 @@ interface Props {
   source: Tables<"heat_index">[];
 }
 
-type sortkey = "name" | "team" | "prob";
+type sortkey = "name" | "team" | "prob" | "fired";
 
 export default function Heat_Table({ source }: Props) {
   const [coaches, setCoaches] = useState<Tables<"heat_index">[]>(source);
@@ -30,20 +28,19 @@ export default function Heat_Table({ source }: Props) {
   }
 
   return (
-    <table className="w-full text-left my-4 bg-white text-black rounded-lg">
+    <table className="w-full text-left bg-white text-black">
       <thead>
         <tr className="font-mono text-sm md:text-base lg:text-xl border-t border-b">
           {[
-            { column: "year", label: "Year" },
-            { column: "team", label: "Team" },
-            { column: "name", label: "Coach" },
-            { column: "prob", label: "Heat Index" },
-            { column: "fired", label: "Result" },
+            { key: "year", label: "Year" },
+            { key: "team", label: "Team" },
+            { key: "name", label: "Coach" },
+            { key: "prob", label: "Heat Index" },
+            { key: "fired", label: "Outcome" },
           ].map((col) => (
             <th
-              className="px-1"
-              key={col.column}
-              onClick={() => handleSort(col.column as sortkey)}
+              className="px-0.5 "
+              onClick={() => handleSort(col.key as sortkey)}
             >
               {col.label}
             </th>
@@ -51,7 +48,11 @@ export default function Heat_Table({ source }: Props) {
         </tr>
       </thead>
       <tbody>
+<<<<<<< HEAD
         {coaches?.map((row, index) => (
+=======
+        {coaches.map((row, index) => (
+>>>>>>> redo-pr
           <CurrentRow key={`${row.id}_${row.year}`} current={row} />
         ))}
       </tbody>

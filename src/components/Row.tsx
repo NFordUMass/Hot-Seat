@@ -8,14 +8,16 @@ interface Props {
 const CurrentRow: React.FC<Props> = ({ current }) => {
   return (
     <tr
-      className="border-b border-neutral-600 px-2"
-      style={{ backgroundColor: current.fired ? "#AA0000" : "inherit" }}
+      className="border-b border-neutral-600"
+      style={{ backgroundColor: current.fired ? "red" : "inherit" }}
     >
-      <td className="text-sm md:text-base lg:text-xl">{current.year}</td>
-      <td>
+      <td className="text-sm md:text-base lg:text-xl font-bold">
+        {current.year}
+      </td>
+      <td className="px-0.5">
         <img
-          src={imgPath("transparent", current.team, 2024)}
-          className="w-8 md:w-16"
+          src={imgPath("nfl", current.team, 2024)}
+          className="w-8 lg:w-16"
           alt={current.team}
         />
       </td>
