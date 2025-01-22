@@ -7,7 +7,10 @@ interface Props {
 
 const CurrentRow: React.FC<Props> = ({ current }) => {
   return (
-    <tr className="border-b border-neutral-600">
+    <tr
+      className="border-b border-neutral-600"
+      style={{ backgroundColor: current.fired ? "#AA0000" : "inherit" }}
+    >
       <td className="text-xl">{current.year}</td>
       <td>
         <img
@@ -18,6 +21,7 @@ const CurrentRow: React.FC<Props> = ({ current }) => {
       </td>
       <td className="text-xl font-bold">{current.name}</td>
       <td className="text-xl">{current.prob.toFixed(2)}</td>
+      <td className="text-xl">{current.fired ? "Fired" : "Safe"}</td>
     </tr>
   );
 };

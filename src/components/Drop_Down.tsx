@@ -2,17 +2,34 @@
 
 import Dropdown from "react-bootstrap/Dropdown";
 
-export default function Drop_Down() {
+interface Props {
+  year: number;
+  setYear: (year: number) => void;
+}
+
+export default function Drop_Down({ year, setYear }: Props) {
   return (
     <Dropdown className="my-8">
-      <Dropdown.Toggle variant="success" id="dropdown-basic">
-        Dropdown Button
+      <Dropdown.Toggle
+        className="text-xl"
+        variant="success"
+        id="dropdown-basic"
+      >
+        {`Change Year`}
       </Dropdown.Toggle>
 
-      <Dropdown.Menu className="my-4">
-        <Dropdown.Item href="#/action-1">Action</Dropdown.Item>
-        <Dropdown.Item href="#/action-2">Another action</Dropdown.Item>
-        <Dropdown.Item href="#/action-3">Something else</Dropdown.Item>
+      <Dropdown.Menu className="flex my-4">
+        {Array.from({ length: 15 }, (_, i) => 2024 - i).map((year) => {
+          return (
+            <Dropdown.Item
+              className="text-lg px-2"
+              key={year}
+              onClick={() => setYear(year)}
+            >
+              {year}
+            </Dropdown.Item>
+          );
+        })}
       </Dropdown.Menu>
     </Dropdown>
   );

@@ -3,7 +3,7 @@
 import { useState } from "react";
 import type { Tables } from "../../supabase/types.ts";
 import Drop_Down from "./Drop_Down.tsx";
-import Heat_Table from "./Table.tsx";
+import Heat_Table from "./Heat_Table.tsx";
 
 interface Props {
   source: Tables<"heat_index">[];
@@ -14,8 +14,8 @@ export default function Table_Wrapper({ source }: Props) {
 
   return (
     <>
-      <Drop_Down />
-      <Heat_Table source={source} />
+      <Drop_Down year={year} setYear={setYear} />
+      <Heat_Table source={source.filter((row) => row.year == year)} />
     </>
   );
 }

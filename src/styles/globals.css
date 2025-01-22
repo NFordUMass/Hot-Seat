@@ -13,6 +13,5 @@
     @apply py-4;
   }
   img {
-    @apply border rounded border-neutral-500;
   }
 }

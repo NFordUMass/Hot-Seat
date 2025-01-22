@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import type { Tables } from "../../supabase/types.ts";
 import CurrentRow from "./Row.tsx";
 
@@ -14,6 +14,11 @@ export default function Heat_Table({ source }: Props) {
   const [coaches, setCoaches] = useState<Tables<"heat_index">[]>(source);
   const [sorted, setSorted] = useState({ key: "prob", dir: "asc" });
 
+  useEffect(() => {
+    setCoaches(source);
+    setSorted({ key: "prob", dir: "asc" });
+  }, [source]);
+
   function handleSort(key: sortkey, natural = "desc") {
     let dir = natural;
     if (sorted.key == key && sorted.dir == natural) {
@@ -25,7 +30,7 @@ export default function Heat_Table({ source }: Props) {
   }
 
   return (
-    <table className="w-full text-left">
+    <table className="w-full text-left my-16 bg-white text-black rounded-lg">
       <thead>
         <tr className="font-mono text-base border-t border-b">
           {[
@@ -33,8 +38,12 @@ export default function Heat_Table({ source }: Props) {
             { column: "team", label: "Team" },
             { column: "name", label: "Coach" },
             { column: "prob", label: "Heat Index" },
+            { column: "fired", label: "Result" },
           ].map((col) => (
-            <th onClick={() => handleSort(col.column as sortkey)}>
+            <th
+              key={col.column}
+              onClick={() => handleSort(col.column as sortkey)}
+            >
               {col.label}
             </th>
           ))}

@@ -46,6 +46,7 @@ export type Database = {
           team: string;
           prob: number;
           id: string;
+          fired: number;
         };
         Insert: {
           year: number;
@@ -53,6 +54,7 @@ export type Database = {
           team: string;
           prob: number;
           id: string;
+          fired: number;
         };
         Update: {
           year: number;
@@ -60,6 +62,7 @@ export type Database = {
           team: string;
           prob: number;
           id: string;
+          fired: number;
         };
         Relationships: [];
       };
