@@ -11,7 +11,7 @@ export const POST: APIRoute = async ({ params, redirect }) => {
 
   if (supabase) {
     const { data: framework } = await supabase
-      .from("frameworks")
+      .from("heat_index")
       .select("*")
       .eq("id", id)
       .single();
@@ -20,16 +20,16 @@ export const POST: APIRoute = async ({ params, redirect }) => {
       return new Response(`Where'd that pet go?`, { status: 404 });
     }
 
-    const { error: updateError } = await supabase
-      .from("frameworks")
-      .update({
-        likes: framework.likes + 1,
-      })
-      .eq("id", framework.id);
+    // const { error: updateError } = await supabase
+    //   .from("heat_index")
+    //   .update({
+    //     likes: framework.likes + 1,
+    //   })
+    //   .eq("id", framework.id);
 
-    if (updateError) {
-      console.error(updateError);
-    }
+    // if (updateError) {
+    //   console.error(updateError);
+    // }
     return redirect(`/frameworks/${framework.id}`, 303);
   }
 
