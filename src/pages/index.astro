@@ -4,23 +4,22 @@ import Alert from "../components/Alert.astro";
 import Guide from "../components/Guide.astro";
 import Layout from "../components/Layout.astro";
 import { supabase } from "../utils/database";
-import Row from "../components/Row.tsx";
-import Table from "../components/Table.tsx";
+import Heat_Table from "../components/Heat_Table.tsx";
 
 export const prerender = false;
 
-const tableName = "current";
+const tableName = "heat_index";
 
-let frameworks;
-let frameworksError;
+let heat_index;
+let heat_index_errors;
 
 console.log("hi");
 
 // Fetch frameworks data from Supabase if connection is set up
 if (supabase) {
   const { data, error } = await supabase.from(tableName).select("*");
-  frameworks = data;
-  frameworksError = error;
+  heat_index = data;
+  heat_index_errors = error;
 }
 
 // Get guides
@@ -31,12 +30,12 @@ const fetchDataGuide = await getEntry("guides", "guide-fetch-data");
 <Layout title="Hot Seat">
   {
     supabase ? (
-      frameworks ? (
+      heat_index ? (
         <>
           <h1 class="mb-8 text-4xl font-bold">
             Who is on the Hot Seat of NFL Head Coaches?
           </h1>
-          <Table source={frameworks} client:load />
+          <Heat_Table source={heat_index} client:load />
         </>
       ) : (
         <Alert

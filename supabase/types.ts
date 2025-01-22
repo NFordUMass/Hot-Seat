@@ -9,54 +9,30 @@ export type Json =
 export type Database = {
   public: {
     Tables: {
-      frameworks: {
+      heat_index: {
         Row: {
-          description: string;
-          created_at: string;
-          url: string;
+          year: number
           id: string;
-          logo: string;
           name: string;
-          likes: number;
+          team: string;
+          prob: number;
+          fired: number;
         };
         Insert: {
-          description: string;
-          created_at?: string;
-          url: string;
-          id?: string;
-          logo: string;
+          year: number
+          id: string;
           name: string;
-          likes?: number;
+          team: string;
+          prob: number;
+          fired: number;
         };
         Update: {
-          description?: string;
-          created_at?: string;
-          url?: string;
-          id?: string;
-          logo?: string;
-          name?: string;
-          likes?: number;
-        };
-        Relationships: [];
-      };
-      current: {
-        Row: {
+          year: number
+          id: string;
           name: string;
           team: string;
           prob: number;
-          id: string;
-        };
-        Insert: {
-          name: string;
-          team: string;
-          prob: number;
-          id: string;
-        };
-        Update: {
-          name: string;
-          team: string;
-          prob: number;
-          id: string;
+          fired: number;
         };
         Relationships: [];
       };
