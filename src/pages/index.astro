@@ -4,7 +4,7 @@ import Alert from "../components/Alert.astro";
 import Guide from "../components/Guide.astro";
 import Layout from "../components/Layout.astro";
 import { supabase } from "../utils/database";
-import Heat_Table from "../components/Heat_Table.tsx";
+import Content from "../components/Content";
 
 export const prerender = false;
 
@@ -35,7 +35,7 @@ const fetchDataGuide = await getEntry("guides", "guide-fetch-data");
           <h1 class="mb-8 text-4xl font-bold">
             Who is on the Hot Seat of NFL Head Coaches?
           </h1>
-          <Heat_Table year={2024} source={heat_index} client:load />
+          <Content source={heat_index} client:load />
         </>
       ) : (
         <Alert

@@ -1,18 +1,19 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import type { Tables } from "../../supabase/types.ts";
 import { imgPath } from "../utils/database.ts";
 import CurrentRow from "./Row.tsx";
 
 interface Props {
-  year: number;
   source: Tables<"heat_index">[];
 }
 
 type sortkey = "name" | "team" | "prob" | "fired";
 
-export default function Heat_Table({ year, source }: Props) {
+export default function Heat_Table({ source }: Props) {
   const [coaches, setCoaches] = useState<Tables<"heat_index">[]>(source);
   const [sorted, setSorted] = useState({ key: "prob", dir: "asc" });
+
+  useEffect(() => setCoaches(source), [source]);
 
   function handleSort(key: sortkey, natural = "desc") {
     let dir = natural;
@@ -44,11 +45,9 @@ export default function Heat_Table({ year, source }: Props) {
         </tr>
       </thead>
       <tbody>
-        {coaches
-          ?.filter((row) => row.year == year)
-          .map((row, index) => (
-            <CurrentRow key={`${row.id}_${row.year}`} current={row} />
-          ))}
+        {coaches.map((row, index) => (
+          <CurrentRow key={`${row.id}_${row.year}`} current={row} />
+        ))}
       </tbody>
     </table>
   );
