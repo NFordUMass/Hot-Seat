@@ -9,7 +9,7 @@ interface Props {
 
 export default function Drop_Down({ year, setYear }: Props) {
   return (
-    <Dropdown className="my-8">
+    <Dropdown className="my-8   ">
       <Dropdown.Toggle
         className="text-xl"
         variant="success"

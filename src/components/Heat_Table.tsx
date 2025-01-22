@@ -30,9 +30,9 @@ export default function Heat_Table({ source }: Props) {
   }
 
   return (
-    <table className="w-full text-left my-16 bg-white text-black rounded-lg">
+    <table className="w-full text-left my-4 bg-white text-black rounded-lg">
       <thead>
-        <tr className="font-mono text-base border-t border-b">
+        <tr className="font-mono text-sm md:text-base lg:text-xl border-t border-b">
           {[
             { column: "year", label: "Year" },
             { column: "team", label: "Team" },
@@ -41,6 +41,7 @@ export default function Heat_Table({ source }: Props) {
             { column: "fired", label: "Result" },
           ].map((col) => (
             <th
+              className="px-1"
               key={col.column}
               onClick={() => handleSort(col.column as sortkey)}
             >
