@@ -14,7 +14,7 @@ export default function Table_Wrapper({ source }: Props) {
 
   return (
     <>
-      <Drop_Down year={year} setYear={setYear} />
+      <Drop_Down setYear={setYear} />
       <h2 className="text-center mt-16 text-2xl">{`${year} Coaches`}</h2>
       <Heat_Table source={source.filter((row) => row.year == year)} />
     </>
