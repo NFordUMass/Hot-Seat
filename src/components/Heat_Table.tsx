@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import type { Tables } from "../../supabase/types.ts";
-import { imgPath } from "../utils/database.ts";
 import CurrentRow from "./Row.tsx";
 
 interface Props {
