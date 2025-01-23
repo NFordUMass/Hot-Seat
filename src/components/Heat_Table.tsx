@@ -39,6 +39,7 @@ export default function Heat_Table({ source }: Props) {
             { key: "fired", label: "Outcome" },
           ].map((col) => (
             <th
+              key={`label_${col.key}`}
               className="px-0.5 "
               onClick={() => handleSort(col.key as sortkey)}
             >
@@ -48,7 +49,7 @@ export default function Heat_Table({ source }: Props) {
         </tr>
       </thead>
       <tbody>
-        {coaches?.map((row, index) => (
+        {coaches?.map((row) => (
           <CurrentRow key={`${row.id}_${row.year}`} current={row} />
         ))}
       </tbody>

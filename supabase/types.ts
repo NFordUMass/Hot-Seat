@@ -6,6 +6,29 @@ export type Json =
   | { [key: string]: Json | undefined }
   | Json[];
 
+  export type Team = 
+  | 'ATL' | 'BUF' | 'CAR' | 'CHI' | 'CIN' | 'CLE' | 'CLT' | 'CRD' 
+  | 'DAL' | 'DEN' | 'DET' | 'GNB' 
+  | 'HTX' 
+  | 'JAX' 
+  | 'KAN' 
+  | 'MIA' 
+  | 'MIN' 
+  | 'NOR' 
+  | 'NWE' 
+  | 'NYG' 
+  | 'NYJ' 
+  | 'OTI' 
+  | 'PHI' 
+  | 'PIT' 
+  | 'RAI' 
+  | 'RAM'
+  | 'RAV'
+  | 'SDG' 
+  | 'SEA' 
+  | 'SFO' 
+  | 'TAM' | 'WAS';
+
 export type Database = {
   public: {
     Tables: {
