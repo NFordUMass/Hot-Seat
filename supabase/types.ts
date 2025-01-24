@@ -6,6 +6,16 @@ export type Json =
   | { [key: string]: Json | undefined }
   | Json[];
 
+export type byCoach = {
+    id: string;
+    name: string;
+    years: number[];
+    teams: string[];
+    heat: number[];
+    win_pcts: number[];
+  };
+  
+
 export type Database = {
   public: {
     Tables: {
@@ -17,6 +27,7 @@ export type Database = {
           team: string;
           prob: number;
           fired: number;
+          win_pct: number;
         };
         Insert: {
           year: number
@@ -25,6 +36,7 @@ export type Database = {
           team: string;
           prob: number;
           fired: number;
+          win_pct: number;
         };
         Update: {
           description?: string;
@@ -34,6 +46,7 @@ export type Database = {
           logo?: string;
           name?: string;
           likes?: number;
+          win_pct?: number;
         };
         Relationships: [];
       };
@@ -42,7 +55,10 @@ export type Database = {
       [_ in never]: never;
     };
     Functions: {
-      [_ in never]: never;
+      agg_by_coach: {
+        Args: {};
+        Returns: byCoach[];
+      };
     };
     Enums: {
       [_ in never]: never;
