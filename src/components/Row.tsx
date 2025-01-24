@@ -1,11 +1,11 @@
 import React from "react";
-import type { byCoach, Tables } from "../../supabase/types.ts";
+import type { coachRow, seasonRow, Tables } from "../../supabase/types.ts";
 import { imgPath } from "../utils/util";
 import Expanded_Row from "./Expanded_Row.tsx";
 
 interface Props {
-  history: byCoach | undefined;
-  rowData: Tables<"heat_index">;
+  history: coachRow | undefined;
+  rowData: seasonRow;
   expanded: string;
   setExpanded: (rowId: string) => void;
 }

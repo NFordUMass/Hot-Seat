@@ -6,7 +6,40 @@ export type Json =
   | { [key: string]: Json | undefined }
   | Json[];
 
-export type byCoach = {
+export type seasonRow = {
+  id: string;
+  year: number;
+  name: string;
+  team: string; // image path team abbrev
+  tm: string; // display team abbrev
+
+  prob: number; // heat index score
+  fired: number; // actual result 1 if fired
+  pred: number; // ML prediction, 1 if fired
+
+  win_pct: number;
+  round: number; // playoff round 1 to 5
+  w_plyf: number;
+  coy_share: number; // % of coach of year vote received
+  srs: number; // simple rating system, approx strength of team
+  gm: number; // how many gms in current tenure
+  owner: number; // how many owners in current tenure
+  poc:boolean; // person of color
+
+  exp: number; // total years coaching
+  tenure: number; // exp with this team
+  tenure_over_500: number; // mimics career win pct
+  tenure_w_plyf: number;
+
+  delta_1yr_win_pct: number;
+  delta_2yr_win_pct: number;
+  delta_3yr_win_pct: number;
+  delta_1yr_plyf: number; // change in playoff round from this year to 1 yr ago
+  delta_2yr_plyf: number;
+  delta_3yr_plyf: number;
+}
+
+export type coachRow = {
     id: string;
     name: string;
     years: number[];
@@ -20,34 +53,9 @@ export type Database = {
   public: {
     Tables: {
       heat_index: {
-        Row: {
-          year: number
-          id: string;
-          name: string;
-          team: string;
-          prob: number;
-          fired: number;
-          win_pct: number;
-        };
-        Insert: {
-          year: number
-          id: string;
-          name: string;
-          team: string;
-          prob: number;
-          fired: number;
-          win_pct: number;
-        };
-        Update: {
-          description?: string;
-          created_at?: string;
-          url?: string;
-          id?: string;
-          logo?: string;
-          name?: string;
-          likes?: number;
-          win_pct?: number;
-        };
+        Row: seasonRow;
+        Insert: seasonRow;
+        Update: seasonRow;
         Relationships: [];
       };
     };
@@ -57,7 +65,7 @@ export type Database = {
     Functions: {
       agg_by_coach: {
         Args: {};
-        Returns: byCoach[];
+        Returns: coachRow[];
       };
     };
     Enums: {

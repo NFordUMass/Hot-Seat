@@ -1,9 +1,9 @@
-import type { byCoach, Tables } from "../../supabase/types.ts";
+import type { coachRow, seasonRow, Tables } from "../../supabase/types.ts";
 import CoachChart from "./Chart.tsx";
 
 interface Props {
-  history: byCoach | undefined;
-  rowData: Tables<"heat_index">;
+  history: coachRow | undefined;
+  rowData: seasonRow;
 }
 
 export default function Expanded_Row({ history, rowData }: Props) {

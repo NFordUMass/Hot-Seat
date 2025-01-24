@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
-import type { byCoach, Tables } from "../../supabase/types.ts";
+import type { coachRow, seasonRow, Tables } from "../../supabase/types.ts";
 import Row from "./Row.tsx";
 
 interface Props {
-  coachRows: byCoach[];
-  source: Tables<"heat_index">[];
+  coachRows: coachRow[];
+  source: seasonRow[];
 }
 
 type sortkey = "name" | "team" | "prob" | "fired";
