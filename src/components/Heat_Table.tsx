@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import type { coachRow, seasonRow, Tables } from "../../supabase/types.ts";
+import type { coachRow, seasonRow } from "../../supabase/types.ts";
 import Row from "./Row.tsx";
 
 interface Props {
@@ -10,7 +10,7 @@ interface Props {
 type sortkey = "name" | "team" | "prob" | "fired";
 
 export default function Heat_Table({ coachRows, source }: Props) {
-  const [coaches, setCoaches] = useState<Tables<"heat_index">[]>(source);
+  const [coaches, setCoaches] = useState<seasonRow[]>(source);
   const [sorted, setSorted] = useState({ key: "prob", dir: "asc" });
   const [expanded, setExpanded] = useState("null_2024");
 
