@@ -1,9 +1,10 @@
-import React from "react";
 import {
   Chart as ChartJS,
   CategoryScale,
   LinearScale,
+  BarController,
   BarElement,
+  LineController,
   LineElement,
   PointElement,
   Title,
@@ -18,7 +19,9 @@ import type { ChartData, ChartOptions } from "chart.js"; // Import proper types
 ChartJS.register(
   CategoryScale,
   LinearScale,
+  BarController,
   BarElement,
+  LineController,
   LineElement,
   PointElement,
   Title,
