@@ -29,7 +29,7 @@ if (supabase) {
           <h1 class="my-2 text-4xl font-bold">
             Who is on the Hot Seat of NFL Head Coaches?
           </h1>
-          <Content source={heat_index} coaches={coaches} client:load />
+          <Content source={heat_index} coaches={coaches} client:only />
         </>
       ) : (
         <Alert
