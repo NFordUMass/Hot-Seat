@@ -1,4 +1,3 @@
-import React from "react";
 import type { byCoach, Tables } from "../../supabase/types.ts";
 import CoachChart from "./Chart.tsx";
 
