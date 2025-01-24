@@ -2,10 +2,10 @@ import { useState } from "react";
 import type { Tables } from "../../supabase/types";
 import Heat_Table from "./Heat_Table";
 import { teams } from "../utils/util";
-import MyBarChart from "./Chart";
 
 interface Props {
   source: Tables<"heat_index">[];
+  coaches: any;
 }
 
 type filterKey = "year" | "team";
@@ -14,7 +14,7 @@ interface Mode {
   by: "year" | "team";
 }
 
-export default function Content({ source }: Props) {
+export default function Content({ source, coaches }: Props) {
   const currentYear = 2024;
   const numYears = 30;
 
@@ -29,7 +29,6 @@ export default function Content({ source }: Props) {
 
   return (
     <>
-      <MyBarChart />
       {/* Toggle: By Year vs By Show */}
       <div className="flex py-2 gap-4 justify-center">
         {["year", "team"].map((filterKey) => (
@@ -79,6 +78,7 @@ export default function Content({ source }: Props) {
         ))}
       </div>
       <Heat_Table
+        coachRows={coaches}
         source={source.filter(
           (row) => row[mode.by] == (mode.by == "year" ? year : team)
         )}

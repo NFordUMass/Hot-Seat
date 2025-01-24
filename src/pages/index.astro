@@ -2,6 +2,7 @@
 import Alert from "../components/Alert.astro";
 import Layout from "../components/Layout.astro";
 import { supabase } from "../utils/database";
+import type { byCoach } from "../../supabase/types.ts";
 import Content from "../components/Content";
 
 export const prerender = false;
@@ -9,11 +10,14 @@ export const prerender = false;
 const tableName = "heat_index";
 
 let heat_index;
+let coaches;
 let heat_index_errors;
 
 // Fetch frameworks data from Supabase if connection is set up
 if (supabase) {
   const { data, error } = await supabase.from(tableName).select("*");
+  const { data: temp, error: coachError } = await supabase.rpc("agg_by_coach");
+  coaches = temp;
   heat_index = data;
   heat_index_errors = error;
 }
@@ -27,7 +31,7 @@ if (supabase) {
           <h1 class="my-2 text-4xl font-bold">
             Who is on the Hot Seat of NFL Head Coaches?
           </h1>
-          <Content source={heat_index} client:load />
+          <Content source={heat_index} coaches={coaches} client:load />
         </>
       ) : (
         <Alert
