@@ -2,6 +2,7 @@ import { useState } from "react";
 import type { Tables } from "../../supabase/types";
 import Heat_Table from "./Heat_Table";
 import { teams } from "../utils/util";
+import MyBarChart from "./Chart";
 
 interface Props {
   source: Tables<"heat_index">[];
@@ -28,6 +29,7 @@ export default function Content({ source }: Props) {
 
   return (
     <>
+      <MyBarChart />
       {/* Toggle: By Year vs By Show */}
       <div className="flex py-2 gap-4 justify-center">
         {["year", "team"].map((filterKey) => (
