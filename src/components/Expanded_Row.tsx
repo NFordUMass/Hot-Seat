@@ -1,4 +1,4 @@
-import type { coachRow, seasonRow, Tables } from "../../supabase/types.ts";
+import type { coachRow, seasonRow } from "../../supabase/types.ts";
 import CoachChart from "./Chart.tsx";
 
 interface Props {
