@@ -1,5 +1,5 @@
 import React from "react";
-import type { coachRow, seasonRow, Tables } from "../../supabase/types.ts";
+import type { coachRow, seasonRow } from "../../supabase/types.ts";
 import { imgPath } from "../utils/util";
 import Expanded_Row from "./Expanded_Row.tsx";
 
