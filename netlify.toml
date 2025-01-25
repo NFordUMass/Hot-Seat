@@ -4,3 +4,8 @@
 
 [template]
   required-extensions = ["supabase"]
+
+[[headers]]
+  for = "/images/nfl/*"
+  [headers.values]
+    Cache-Control = "public, max-age=604800, must-revalidate"
