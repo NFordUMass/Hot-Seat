@@ -1,33 +1,25 @@
 import { useEffect, useState } from "react";
 import type { coachRow, seasonRow } from "../../supabase/types.ts";
 import Row from "./Row.tsx";
+import { handleSort, type sortkey } from "../utils/util";
 
 interface Props {
   coachRows: coachRow[];
   source: seasonRow[];
 }
 
-type sortkey = "name" | "team" | "prob" | "fired";
-
 export default function Heat_Table({ coachRows, source }: Props) {
   const [coaches, setCoaches] = useState<seasonRow[]>(source);
-  const [sorted, setSorted] = useState({ key: "prob", dir: "asc" });
+  const [sorted, setSorted] = useState<{ key: sortkey; dir: "asc" | "desc" }>({
+    key: "prob",
+    dir: "asc",
+  });
   const [expanded, setExpanded] = useState("null_2024");
 
   useEffect(() => {
     setCoaches(source);
     setSorted({ key: "prob", dir: "asc" });
   }, [source]);
-
-  function handleSort(key: sortkey, natural = "desc") {
-    let dir = natural;
-    if (sorted.key == key && sorted.dir == natural) {
-      dir = natural == "desc" ? "asc" : "desc";
-    }
-    setSorted({ key, dir });
-    let i = dir == "asc" ? 1 : -1;
-    setCoaches([...coaches].sort((a, b) => (a[key] < b[key] ? i : -i)));
-  }
 
   return (
     <table className="w-full text-left bg-white text-black">
@@ -43,7 +35,16 @@ export default function Heat_Table({ coachRows, source }: Props) {
             <th
               key={`label_${col.key}`}
               className="px-0.5 "
-              onClick={() => handleSort(col.key as sortkey)}
+              onClick={() =>
+                handleSort({
+                  data: coaches,
+                  setData: setCoaches,
+                  sorted: sorted,
+                  setSorted: setSorted,
+                  key: col.key as sortkey,
+                  natural: col.key == "name" ? "desc" : "asc",
+                })
+              }
             >
               {col.label}
             </th>

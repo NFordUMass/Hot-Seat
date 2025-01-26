@@ -12,6 +12,8 @@ export type seasonRow = {
   name: string;
   team: string; // image path team abbrev
   tm: string; // display team abbrev
+  color1: string;
+  color2: string;
 
   prob: number; // heat index score
   fired: number; // actual result 1 if fired
@@ -46,6 +48,8 @@ export type coachRow = {
     teams: string[];
     heat: number[];
     win_pcts: number[];
+    colors_1: string[];
+    colors_2: string[];
   };
   
 

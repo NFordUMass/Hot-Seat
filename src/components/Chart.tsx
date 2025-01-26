@@ -30,12 +30,20 @@ ChartJS.register(
 );
 
 interface Props {
-  heat: number[];
-  labels: string[];
-  win_pcts: number[];
+  heat: (number | null)[];
+  labels: (string | null)[];
+  win_pcts: (number | null)[];
+  colors_1: string[];
+  colors_2: string[];
 }
 
-export default function CoachChart({ heat, labels, win_pcts }: Props) {
+export default function CoachChart({
+  heat,
+  labels,
+  win_pcts,
+  colors_1,
+  colors_2,
+}: Props) {
   // Define the data object with the correct type
   const data: ChartData<"bar" | "line"> = {
     labels: labels,
@@ -49,7 +57,7 @@ export default function CoachChart({ heat, labels, win_pcts }: Props) {
         borderColor: "rgba(255, 99, 132, 1)",
         borderWidth: 2,
         fill: false,
-        tension: 0.4,
+        tension: 0,
         yAxisID: "y1", // Specify the y-axis for this dataset
       },
       // Bar chart dataset
@@ -57,10 +65,11 @@ export default function CoachChart({ heat, labels, win_pcts }: Props) {
         type: "bar", // Specify bar chart
         label: "Team Winning Pct",
         data: win_pcts,
-        borderColor: "rgba(54, 162, 235, 1)",
-        backgroundColor: "rgba(54, 162, 235, 0.2)",
-        borderWidth: 1,
+        borderColor: colors_2,
+        backgroundColor: colors_1,
+        borderWidth: 3,
         yAxisID: "y2", // Specify the y-axis for this dataset
+        minBarLength: 5,
       },
     ],
   };

@@ -1,10 +1,10 @@
 import { useState } from "react";
-import type { Tables } from "../../supabase/types";
+import type { seasonRow } from "../../supabase/types";
 import Heat_Table from "./Heat_Table";
 import { teams } from "../utils/util";
 
 interface Props {
-  source: Tables<"heat_index">[];
+  source: seasonRow[];
   coaches: any;
 }
 
@@ -79,9 +79,9 @@ export default function Content({ source, coaches }: Props) {
       </div>
       <Heat_Table
         coachRows={coaches}
-        source={source.filter(
-          (row) => row[mode.by] == (mode.by == "year" ? year : team)
-        )}
+        source={source
+          .filter((row) => row[mode.by] == (mode.by == "year" ? year : team))
+          .sort((row1, row2) => (row1.prob < row2.prob ? 1 : -1))}
       />
     </>
   );
