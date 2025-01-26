@@ -55,7 +55,13 @@ export default function CoachChart({
         data: heat,
         backgroundColor: "rgba(255, 99, 132, 0.5)",
         borderColor: "rgba(255, 99, 132, 1)",
-        borderWidth: 2,
+        borderWidth: heat.map((value, index) =>
+          value != null && heat[index + 1] != null ? Math.max(5 * value, 1) : 1
+        ),
+        pointRadius: 2,
+        pointBorderWidth: heat.map((heat) =>
+          Math.max(20 * (heat != null ? heat : 0), 0.5)
+        ),
         fill: false,
         tension: 0,
         yAxisID: "y1", // Specify the y-axis for this dataset
