@@ -12,12 +12,10 @@ function space_labels<X>(
   years: number[],
   teams: string[]
 ): (X | null)[] {
-  let prev: X | null = null;
   return years.reduce((acc: (X | null)[], e: number, i: number) => {
     if (i > 0 && (years[i] != years[i - 1] + 1 || teams[i] != teams[i - 1])) {
       acc.push(null);
     }
-    prev = target_array[i];
     acc.push(target_array[i]);
     return acc;
   }, []);
@@ -31,7 +29,6 @@ export default function Expanded_Row({ history, rowData }: Props) {
   const colors_1_hex = history ? history.colors_1 : ["000000"];
   const colors_2_hex = history ? history.colors_2 : ["000000"];
 
-  let prev = -1;
   const heat_spaced: (number | null)[] = space_labels(heat, years, teams);
 
   const win_pcts_spaced: (number | null)[] = space_labels(

@@ -53,14 +53,16 @@ export default function CoachChart({
         type: "line", // Specify line chart
         label: "Heat Index",
         data: heat,
-        backgroundColor: "rgba(255, 99, 132, 0.5)",
+        backgroundColor: "rgba(255, 99, 132, 1)",
         borderColor: "rgba(255, 99, 132, 1)",
         borderWidth: heat.map((value, index) =>
           value != null && heat[index + 1] != null ? Math.max(5 * value, 1) : 1
         ),
-        pointRadius: 2,
+        pointRadius: heat.map((value) =>
+          value != null ? Math.max(10 * value, 1) : 1
+        ),
         pointBorderWidth: heat.map((heat) =>
-          Math.max(20 * (heat != null ? heat : 0), 0.5)
+          Math.max(5 * (heat != null ? heat : 0), 1)
         ),
         fill: false,
         tension: 0,
