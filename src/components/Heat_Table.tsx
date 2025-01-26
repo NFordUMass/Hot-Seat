@@ -1,25 +1,28 @@
 import { useEffect, useState } from "react";
 import type { coachRow, seasonRow } from "../../supabase/types.ts";
 import Row from "./Row.tsx";
-import { handleSort, type sortkey } from "../utils/util";
+import { handleSort, type Mode, type sortkey } from "../utils/util";
 
 interface Props {
+  mode: Mode;
   coachRows: coachRow[];
   source: seasonRow[];
 }
 
-export default function Heat_Table({ coachRows, source }: Props) {
+export default function Heat_Table({ mode, coachRows, source }: Props) {
   const [coaches, setCoaches] = useState<seasonRow[]>(source);
   const [sorted, setSorted] = useState<{ key: sortkey; dir: "asc" | "desc" }>({
     key: "prob",
-    dir: "asc",
+    dir: "desc",
   });
   const [expanded, setExpanded] = useState("null_2024");
 
   useEffect(() => {
     setCoaches(source);
-    setSorted({ key: "prob", dir: "asc" });
-  }, [source]);
+    const key = mode.by == "team" ? "year" : "prob";
+    const dir = "asc";
+    setSorted({ key: key, dir: dir });
+  }, [mode.by, source]);
 
   return (
     <table className="w-full text-left bg-white text-black">

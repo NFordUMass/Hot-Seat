@@ -1,6 +1,10 @@
 import type { seasonRow } from "../../supabase/types";
 
-export type sortkey = "name" | "team" | "prob" | "fired";
+export type sortkey = "name" | "team" | "prob" | "fired" | 'year';
+
+export interface Mode {
+    by: "year" | "team";
+}
 
 export function imgPath(folder:string,abbrev:string,year=2024){
     return `/images/${folder}/${abbrev.toLowerCase()}-${year}.png`;
