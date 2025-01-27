@@ -2,6 +2,7 @@ import { useState } from "react";
 import type { seasonRow } from "../../supabase/types";
 import Heat_Table from "./Heat_Table";
 import { teams, type Mode } from "../utils/util";
+import WhatIf from "./WhatIf";
 
 interface Props {
   source: seasonRow[];
@@ -24,7 +25,10 @@ export default function Content({ source, coaches }: Props) {
   }
 
   return (
-    <>
+    <div>
+      <h1 className="my-2 text-4xl text-center font-bold">
+        Who is on the Hot Seat of NFL Head Coaches?
+      </h1>
       {/* Toggle: By Year vs By Show */}
       <div className="flex py-2 gap-4 justify-center">
         {["year", "team"].map((filterKey) => (
@@ -48,7 +52,7 @@ export default function Content({ source, coaches }: Props) {
       </div>
 
       {/* Menu of Choices */}
-      <div className="text-center py-2">
+      <div className="text-center py-2 mx-8">
         {(mode.by == "year"
           ? Array.from({ length: numYears }, (_, i) => currentYear - i)
           : source
@@ -85,6 +89,6 @@ export default function Content({ source, coaches }: Props) {
               : -1
           )}
       />
-    </>
+    </div>
   );
 }
