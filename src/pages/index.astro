@@ -4,13 +4,14 @@ import Layout from "../components/Layout.astro";
 import { supabase } from "../utils/database";
 import Content from "../components/Content";
 import WhatIf from "../components/WhatIf";
+import type { coachRow, seasonRow } from "../../supabase/types";
 
 export const prerender = false;
 
 const tableName = "heat_index";
 
-let heat_index;
-let coaches;
+let heat_index: seasonRow[] | null = null;
+let coaches: coachRow[] | null = null;
 
 // Fetch frameworks data from Supabase if connection is set up
 if (supabase) {
@@ -30,11 +31,18 @@ if (supabase) {
           <div class="flex flex-col md:flex-row">
             {/* Hot Seat Standings */}
             <div class="w-full md:w-1/2">
+              <h1 class="my-2 text-4xl text-center font-bold">
+                Who is on the Hot Seat of NFL Head Coaches?
+              </h1>
               <Content source={heat_index} coaches={coaches} client:only />
             </div>
             {/* What If Engine*/}
             <div class="w-full md:w-1/2">
-              <WhatIf />
+              <h1 class="my-2 text-4xl text-center font-bold">What If?</h1>
+              <WhatIf
+                seasonRow={heat_index ? heat_index[1] : null}
+                client:only
+              />
             </div>
           </div>
         </>
