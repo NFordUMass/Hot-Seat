@@ -24,7 +24,7 @@ export default function Content({ source, coaches }: Props) {
   }
 
   return (
-    <div>
+    <div className="h-[32em] md:h-[37.5em] xl:h-[57em] overflow-y-scroll">
       {/* Toggle: By Year vs By Show */}
       <div className="flex py-2 gap-4 justify-center">
         {["year", "team"].map((filterKey) => (
@@ -48,7 +48,7 @@ export default function Content({ source, coaches }: Props) {
       </div>
 
       {/* Menu of Choices */}
-      <div className="text-center py-2 mx-2 md:mx-8">
+      <div className="text-center py-2 mx-4 md:mx-12 max-h-[75px] overflow-x-auto flex">
         {(mode.by == "year"
           ? Array.from({ length: numYears }, (_, i) => currentYear - i)
           : source

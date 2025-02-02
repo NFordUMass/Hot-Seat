@@ -75,23 +75,25 @@ export default function WhatIf({
   return row ? (
     <div className="flex flex-row">
       <div className="w-1/2">
-        <p className="text-xs md:text-lg lg:text-4xl">{`in ${row.year + 1},`}</p>
-        <div className="flex flex-row gap-2 py-1">
+        <p className="text-xs md:text-lg lg:text-2xl py-1">{`in ${row.year + 1},`}</p>
+        <div className="flex flex-row gap-2 py-1 items-center">
           <SelectInput
-            name="Choose Coach"
+            name="Coach"
             value={row_index}
             id="coach"
             options={source.map((row) => row.name)}
+            helper=""
             onChange={(event) => setRow_Index(parseInt(event.target.value))}
           />
-          <p className="text-xs md:text-lg lg:text-4xl">{" goes "}</p>
+          <p className="text-xs md:text-lg lg:text-2xl">{" goes "}</p>
         </div>
-        <div className="flex flex-row gap-2 py-1">
+        <div className="flex flex-row gap-2 py-1 items-center">
           <SelectInput
-            name="Choose Record"
+            name="Record"
             value={record}
             id="record"
             options={Records}
+            helper=""
             onChange={(event) => {
               setRecord(parseInt(event.target.value));
               changeInputs(
@@ -101,12 +103,13 @@ export default function WhatIf({
               );
             }}
           />
-          <p className="text-xs md:text-lg lg:text-4xl">{" and "}</p>
+          <p className="text-xs md:text-lg lg:text-2xl">{" and "}</p>
           <SelectInput
-            name="Choose Playoff Result"
+            name="Playoff Result"
             value={round}
             id="playoff_result"
             options={Plyf_Round}
+            helper=""
             onChange={(event) => {
               setRound(parseInt(event.target.value));
               changeInputs("round", parseInt(event.target.value));
