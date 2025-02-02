@@ -3,13 +3,16 @@ import Alert from "../components/Alert.astro";
 import Layout from "../components/Layout.astro";
 import { supabase } from "../utils/database";
 import Content from "../components/Content";
+import WhatIf from "../components/WhatIf";
+import type { coachRow, seasonRow } from "../../supabase/types";
+import { Games, get_random_input } from "../utils/util";
 
 export const prerender = false;
 
 const tableName = "heat_index";
 
-let heat_index;
-let coaches;
+let heat_index: seasonRow[] | null = null;
+let coaches: coachRow[] | null = null;
 
 // Fetch frameworks data from Supabase if connection is set up
 if (supabase) {
@@ -19,6 +22,8 @@ if (supabase) {
   coaches = temp;
   heat_index = data;
 }
+
+const [round, record] = get_random_input();
 ---
 
 <Layout title="Hot Seat">
@@ -26,10 +31,27 @@ if (supabase) {
     supabase ? (
       heat_index ? (
         <>
-          <h1 class="my-2 text-4xl font-bold">
-            Who is on the Hot Seat of NFL Head Coaches?
-          </h1>
-          <Content source={heat_index} coaches={coaches} client:only />
+          <div class="flex flex-col md:flex-row gap-4">
+            {/* Hot Seat Standings */}
+            <div class="w-full md:w-1/2">
+              <h1 class="my-2 text-4xl text-center font-bold">
+                Who is on the Hot Seat of NFL Head Coaches?
+              </h1>
+              <Content source={heat_index} coaches={coaches} client:only />
+            </div>
+            {/* What If Engine*/}
+            <div class="w-full md:w-1/2">
+              <h1 class="my-2 text-4xl text-center font-bold">What If?</h1>
+              <WhatIf
+                source={
+                  heat_index ? heat_index.filter((row) => row.year == 2024) : []
+                }
+                round_init={round}
+                record_init={record}
+                client:only
+              />
+            </div>
+          </div>
         </>
       ) : (
         <Alert

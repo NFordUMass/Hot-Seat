@@ -117,7 +117,8 @@ export default function CoachChart({
     },
   };
   return (
-    <div style={{ width: "600px", height: "400px" }}>
+    // TODO: make this a flex flex-col where chart takes up left half, but slides to top in small screen
+    <div className="w-full md:w-[50%]">
       <Chart type="bar" data={data} options={options} />
     </div>
   );
