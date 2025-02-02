@@ -2,7 +2,6 @@ import { useState } from "react";
 import type { seasonRow } from "../../supabase/types";
 import Heat_Table from "./Heat_Table";
 import { teams, get_abbrev, type Mode } from "../utils/util";
-import WhatIf from "./WhatIf";
 
 interface Props {
   source: seasonRow[];

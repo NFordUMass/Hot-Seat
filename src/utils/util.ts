@@ -6,7 +6,7 @@ export interface Mode {
     by: "year" | "team";
 }
 
-const Games = 17;
+export const Games = 17;
 export const Records:string[] = Array.from({ length: 18 }).map((_, i) => `${i}-${Games - i}`);
 
 export const Plyf_Round:string[] = [
@@ -27,6 +27,19 @@ const Team_Abbrevs_Reverse:Map<string,string> = new Map<string,string>(Array.fro
 export function get_abbrev(team:string,rev=false){
     return rev ? Team_Abbrevs_Reverse.has(team) ? Team_Abbrevs_Reverse.get(team) : team 
                 : Team_Abbrevs.has(team) ? Team_Abbrevs.get(team) : team;
+}
+
+// TODO: make normal
+export function get_random_input():[number,number]{
+    const round = Math.floor(Math.random() * 6);
+    let record = 0;
+    if(round == 0){
+        record = Math.floor(Math.random() * (11)) // 0-17 to 10-7
+    }
+    else {
+        record = Math.floor(Math.random() * (9)) + 9; // 9-8 to 17-0
+    }
+    return [round,record];
 }
 
 export function imgPath(folder:string,abbrev:string,year=2024){
