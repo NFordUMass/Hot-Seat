@@ -27,11 +27,14 @@ export type seasonRow = {
   gm: number; // how many gms in current tenure
   owner: number; // how many owners in current tenure
   poc:boolean; // person of color
+  ou: number; // how much team outperformed over/under
 
   exp: number; // total years coaching
   tenure: number; // exp with this team
   tenure_over_500: number; // mimics career win pct
   tenure_w_plyf: number;
+  tenure_coy_share:number;
+  exp_coy_share: number;
 
   delta_1yr_win_pct: number;
   delta_2yr_win_pct: number;

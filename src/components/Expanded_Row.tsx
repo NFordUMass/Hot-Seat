@@ -55,7 +55,7 @@ export default function Expanded_Row({ history, rowData }: Props) {
     <tr>
       <td colSpan={6} style={{ padding: "10px", backgroundColor: "#f9f9f9" }}>
         <div>
-          <strong>Details for {rowData.team}</strong>
+          <strong>Details for {rowData.name}</strong>
           <CoachChart
             heat={heat_spaced}
             labels={labels_spaced}
