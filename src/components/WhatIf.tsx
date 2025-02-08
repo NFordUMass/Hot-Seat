@@ -130,7 +130,7 @@ export default function WhatIf({
       </div>
       <div className="w-1/2">
         <img
-          src={"images/coaches/BowlTo0.png"} // imgPath("nfl", rowData.team, 2024)
+          src={"images/coaches/StefKe0.png"} // imgPath("nfl", rowData.team, 2024)
           className="w-96"
           alt={row.name}
         />
