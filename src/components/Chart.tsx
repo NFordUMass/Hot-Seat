@@ -117,8 +117,8 @@ export default function CoachChart({
     },
   };
   return (
-    // TODO: make this a flex flex-col where chart takes up left half, but slides to top in small screen
-    <div className="w-full md:w-[50%]">
+    // TODO: get rid of 2025 data in chart
+    <div className="w-full">
       <Chart type="bar" data={data} options={options} />
     </div>
   );

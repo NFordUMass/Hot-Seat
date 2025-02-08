@@ -42,6 +42,26 @@ export function get_random_input():[number,number]{
     return [round,record];
 }
 
+// utils/imageUtils.ts
+async function imageExists(url: string): Promise<boolean> {
+    try {
+        const response = await fetch(url, { method: 'HEAD' });
+        return response.ok; // Returns true if the status code is 200-299
+    } catch (error) {
+        return false;
+    }
+}
+
+// utils/imageUtils.ts
+export const DEFAULT_COACH_IMAGE = '/images/coaches/WalsBi0.png';
+
+export async function get_coach_image(coachID: string): Promise<string> {
+    const imagePath = `/images/coaches/${coachID}.png`;
+    const exists = await imageExists(imagePath);
+
+    return exists ? imagePath : DEFAULT_COACH_IMAGE;
+}
+
 export function imgPath(folder:string,abbrev:string,year=2024){
     return `/images/${folder}/${abbrev.toLowerCase()}-${year}.png`;
 }
