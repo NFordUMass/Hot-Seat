@@ -10,6 +10,7 @@ export type seasonRow = {
   id: string;
   year: number;
   name: string;
+  age: number;
   team: string; // image path team abbrev
   tm: string; // display team abbrev
   color1: string;

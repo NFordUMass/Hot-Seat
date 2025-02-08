@@ -1,5 +1,5 @@
 import type { coachRow, seasonRow } from "../../supabase/types.ts";
-import { hexToRgba } from "../utils/util.ts";
+import { hexToRgba, Team_Abbrevs } from "../utils/util.ts";
 import CoachChart from "./Chart.tsx";
 import CoachImage from "./CoachImage.tsx";
 
@@ -55,9 +55,27 @@ export default function Expanded_Row({ history, rowData }: Props) {
   return (
     <tr>
       <td colSpan={6} style={{ padding: "10px", backgroundColor: "#f9f9f9" }}>
-        <div className="flex flex-row">
-          <div className="w-1/2">
-            <strong>Details for {rowData.name}</strong>
+        <div className="flex flex-col md:flex-row">
+          <div className="grid grid-cols-2 md:grid-cols-1 gap-4 md:gap-0 w-full md:w-1/4 text-center">
+            <div className="order-2 md:order-1">
+              <CoachImage rowData={rowData} />
+            </div>
+            {/* Coach Info */}
+            <div className="-mr-4 z-10 order-1 md:order-2">
+              <strong>{rowData.name}</strong>
+              <div className="flex flex-row gap-2 justify-center">
+                <p>{`Age: ${rowData.age} `}</p>
+                <p>{`Experience: ${rowData.exp} yrs.`}</p>
+              </div>
+              <p>{`Team: ${Team_Abbrevs.get(rowData.team)}`}</p>
+            </div>
+          </div>
+          <div className="w-full md:w-1/4">
+            {"Coach Table"} <br />
+            {"Coach Accolades"} <br />
+            {"Similar Coaches"}
+          </div>
+          <div className="w-full md:w-1/2">
             <CoachChart
               heat={heat_spaced}
               labels={labels_spaced}
@@ -65,14 +83,6 @@ export default function Expanded_Row({ history, rowData }: Props) {
               colors_1={colors_1__rgb}
               colors_2={colors_2__rgb}
             />
-          </div>
-          <div className="w-1/4">
-            {"Coach Table"} <br />
-            {"Coach Accolades"} <br />
-            {"Similar Coaches"}
-          </div>
-          <div className="w-1/4">
-            <CoachImage rowData={rowData} />
           </div>
         </div>
       </td>
