@@ -8,7 +8,7 @@ export async function GET(context: { request: Request }) {
   // Extract query parameters correctly
   const url = new URL(context.request.url);
 
-  console.log("🌍 Full request URL:", url.toString());  // Debugging
+  console.log("🔍 Query params:", Object.fromEntries(url.searchParams.entries())); // Show all params
 
   const coach_id = url.searchParams.get('coach_id');
 

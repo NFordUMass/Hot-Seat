@@ -10,12 +10,10 @@ export default function Coach_History({ coachId }: Props) {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
-  const temp = "CarrPe0";
-
   useEffect(() => {
     const fetchTable = async () => {
       try {
-        const response = await fetch(`/api/coach_table?coach_id=temp`);
+        const response = await fetch(`/api/coach_table?coach_id=${coachId}`);
         if (!response.ok) {
           throw new Error(`HTTP error! Status: ${response.status}`);
         }
