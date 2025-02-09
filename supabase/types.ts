@@ -21,8 +21,11 @@ export type seasonRow = {
   pred: number; // ML prediction, 1 if fired
 
   win_pct: number;
+  wins:number;
+  losses:number;
   round: number; // playoff round 1 to 5
   w_plyf: number;
+  l_plyf: number;
   coy_share: number; // % of coach of year vote received
   srs: number; // simple rating system, approx strength of team
   gm: number; // how many gms in current tenure

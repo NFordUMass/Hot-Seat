@@ -65,13 +65,17 @@ export default function Expanded_Row({ history, rowData }: Props) {
               <strong>{rowData.name}</strong>
               <div className="flex flex-row gap-2 justify-center">
                 <p>{`Age: ${rowData.age} `}</p>
-                <p>{`Experience: ${rowData.exp} yrs.`}</p>
+                <p>{`Experience: ${rowData.exp} ${rowData.exp > 1 ? "yrs." : "yr."}`}</p>
               </div>
               <p>{`Team: ${Team_Abbrevs.get(rowData.team)}`}</p>
             </div>
           </div>
           <div className="w-full md:w-1/4">
-            {"Coach Table"} <br />
+            <p>
+              <strong>{"Resume"}</strong>
+              {`, in ${rowData.year}`}
+            </p>
+            <div>{"Coach Table"} </div>
             {"Coach Accolades"} <br />
             {"Similar Coaches"}
           </div>
