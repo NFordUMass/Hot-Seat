@@ -1,6 +1,7 @@
 import type { coachRow, seasonRow } from "../../supabase/types.ts";
 import { hexToRgba, Team_Abbrevs } from "../utils/util.ts";
 import CoachChart from "./Chart.tsx";
+import Coach_History from "./Coach_History.tsx";
 import CoachImage from "./CoachImage.tsx";
 
 interface Props {
@@ -71,6 +72,7 @@ export default function Expanded_Row({ history, rowData }: Props) {
             </div>
           </div>
           <div className="w-full md:w-1/4">
+            <Coach_History coachId={rowData.id} />
             <p>
               <strong>{"Resume"}</strong>
               {`, in ${rowData.year}`}

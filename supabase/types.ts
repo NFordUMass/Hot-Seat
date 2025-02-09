@@ -6,6 +6,18 @@ export type Json =
   | { [key: string]: Json | undefined }
   | Json[];
 
+
+export type historyRow = {
+  team:string;
+  tenure:number;
+  start:number;
+  stop:number;
+  wins:number;
+  losses:number;
+  win_plyf:number;
+  loss_plyf:number;
+}
+
 export type seasonRow = {
   id: string;
   year: number;
