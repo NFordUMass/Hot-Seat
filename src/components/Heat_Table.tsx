@@ -58,7 +58,9 @@ export default function Heat_Table({ mode, coachRows, source }: Props) {
       <tbody>
         {coaches?.map((row) => (
           <Row
-            history={coachRows.find((coach) => coach.id == row.id)}
+            history={
+              coachRows.find((coach) => coach.id == row.id) ?? ({} as coachRow)
+            }
             key={`${row.id}_${row.year}`}
             rowData={row}
             expanded={expanded}

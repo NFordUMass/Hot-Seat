@@ -7,17 +7,6 @@ export type Json =
   | Json[];
 
 
-export type historyRow = {
-  team:string;
-  tenure:number;
-  start:number;
-  stop:number;
-  wins:number;
-  losses:number;
-  win_plyf:number;
-  loss_plyf:number;
-}
-
 export type seasonRow = {
   id: string;
   year: number;
@@ -66,7 +55,14 @@ export type coachRow = {
     years: number[];
     teams: string[];
     heat: number[];
+    wins: number[];
+    losses: number[];
+    rounds: number[];
+    wins_plyf: number[];
+    losses_plyf:number[];
     win_pcts: number[];
+    coy_ranks: number[];
+    coy_shares: number[];
     colors_1: string[];
     colors_2: string[];
   };

@@ -4,7 +4,7 @@ import { imgPath } from "../utils/util";
 import Expanded_Row from "./Expanded_Row.tsx";
 
 interface Props {
-  history: coachRow | undefined;
+  history: coachRow;
   rowData: seasonRow;
   expanded: string;
   setExpanded: (rowId: string) => void;

@@ -12,14 +12,17 @@ export const prerender = false;
 const tableName = "heat_index";
 
 let heat_index: seasonRow[] | null = null;
-let coaches: coachRow[] | null = null;
+let coaches: coachRow[] = [];
 
 // Fetch frameworks data from Supabase if connection is set up
 if (supabase) {
   const { data, error: err } = await supabase.from(tableName).select("*");
   console.log(err);
   const { data: temp, error: _ } = await supabase.rpc("agg_by_coach");
-  coaches = temp;
+  if (temp == null) {
+    coaches = [];
+  }
+  coaches = temp as coachRow[];
   heat_index = data;
 }
 
