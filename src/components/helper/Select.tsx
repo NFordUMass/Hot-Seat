@@ -9,6 +9,7 @@ interface Props {
   value: number | string;
   id: string;
   options: string[];
+  text_color: string;
   helper: string;
   onChange: (event: SelectChangeEvent) => void;
 }
@@ -18,6 +19,7 @@ export default function SelectInput({
   value,
   id,
   options,
+  text_color,
   helper = "",
   onChange,
 }: Props) {
@@ -26,7 +28,7 @@ export default function SelectInput({
       <FormControl
         sx={{
           m: 0.5,
-          minWidth: 120,
+          minWidth: "10rem",
           "& .MuiOutlinedInput-root": {
             "& fieldset": {
               borderColor: "white", // Change border color to white
@@ -42,7 +44,7 @@ export default function SelectInput({
       >
         <InputLabel
           id="demo-simple-select-helper-label"
-          sx={{ color: "white" }}
+          sx={{ color: text_color }}
         >
           {name}
         </InputLabel>
@@ -52,7 +54,11 @@ export default function SelectInput({
           value={value as string | undefined}
           label={name}
           onChange={onChange}
-          sx={{ color: "white", borderColor: "white", fontSize: "1.25rem" }}
+          sx={{
+            color: text_color,
+            borderColor: text_color,
+            fontSize: "1.25rem",
+          }}
         >
           {options.map((option, i) => (
             <MenuItem value={i} key={`${id}_${i}`}>
@@ -60,7 +66,7 @@ export default function SelectInput({
             </MenuItem>
           ))}
         </Select>
-        <FormHelperText sx={{ color: "white" }}>{helper}</FormHelperText>
+        <FormHelperText sx={{ color: text_color }}>{helper}</FormHelperText>
       </FormControl>
     </div>
   );

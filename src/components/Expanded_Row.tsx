@@ -1,13 +1,27 @@
+import { use, useState } from "react";
 import type { coachRow, seasonRow } from "../../supabase/types.ts";
-import { hexToRgba, Team_Abbrevs } from "../utils/util.ts";
+import {
+  filterCoachRowByYear,
+  hexToRgba,
+  Team_Abbrevs,
+} from "../utils/util.ts";
 import CoachChart from "./Chart.tsx";
 import Coach_Awards from "./Coach_Awards.tsx";
 import Coach_History from "./Coach_History.tsx";
 import CoachImage from "./CoachImage.tsx";
+import SelectInput from "./helper/Select.tsx";
+import Filter_Select from "./helper/Filter_Select.tsx";
 
 interface Props {
   history: coachRow;
   rowData: seasonRow;
+}
+
+function space_labels_helper<X>(
+  years: number[],
+  teams: string[]
+): (target_array: X[]) => (X | null)[] {
+  return (target_array: X[]) => space_labels(target_array, years, teams);
 }
 
 function space_labels<X>(
@@ -15,48 +29,58 @@ function space_labels<X>(
   years: number[],
   teams: string[]
 ): (X | null)[] {
-  return years.reduce((acc: (X | null)[], e: number, i: number) => {
-    if (i > 0 && (years[i] != years[i - 1] + 1 || teams[i] != teams[i - 1])) {
+  const acc: (X | null)[] = [];
+
+  for (let i = 0; i < years.length; i++) {
+    if (i > 0 && (years[i] !== years[i - 1] + 1 || teams[i] !== teams[i - 1])) {
       acc.push(null);
     }
     acc.push(target_array[i]);
-    return acc;
-  }, []);
+  }
+
+  return acc;
 }
 
 export default function Expanded_Row({ history, rowData }: Props) {
-  const years = history ? history.years : [];
-  const heat = history ? history.heat : [1];
-  const win_pcts = history ? history.win_pcts : [0];
-  const teams = history ? history.teams : [""];
-  const colors_1_hex = history ? history.colors_1 : ["000000"];
-  const colors_2_hex = history ? history.colors_2 : ["000000"];
+  const [filter, setFilter] = useState({ filter: false, year: rowData.year });
+  const coachData = filter.filter
+    ? filterCoachRowByYear(history, filter.year)
+    : history;
 
-  const heat_spaced: (number | null)[] = space_labels(heat, years, teams);
-
-  const win_pcts_spaced: (number | null)[] = space_labels(
-    win_pcts,
-    years,
-    teams
+  const space_labels_num = space_labels_helper<number>(
+    coachData.years,
+    coachData.teams
+  );
+  const space_labels_str = space_labels_helper<string>(
+    coachData.years,
+    coachData.teams
   );
 
-  const labels_spaced: (string | null)[] = space_labels(
-    years,
-    years,
-    teams
+  const heat_spaced: (number | null)[] = space_labels_num(coachData.heat);
+
+  const win_pcts_spaced: (number | null)[] = space_labels_num(
+    coachData.win_pcts
+  );
+
+  const labels_spaced: (string | null)[] = space_labels_num(
+    coachData.years
   ).map((year) => (year != null ? year.toString() : year));
 
-  const colors_1__rgb = space_labels<string>(colors_1_hex, years, teams)
-    .map((year) => (year != null ? year.toString() : year))
-    .map((color) => (color != null ? hexToRgba(color, 0.5) : "000000"));
+  const colors_1__rgb = space_labels_str(coachData.colors_1).map((color) =>
+    color != null ? hexToRgba(color, 0.5) : "000000"
+  );
 
-  const colors_2__rgb = space_labels<string>(colors_2_hex, years, teams)
-    .map((year) => (year != null ? year.toString() : year))
-    .map((color) => (color != null ? hexToRgba(color, 0.5) : "000000"));
+  const colors_2__rgb = space_labels_str(coachData.colors_2).map((color) =>
+    color != null ? hexToRgba(color, 0.5) : "000000"
+  );
 
   return (
     <tr className="w-full">
       <td colSpan={6} style={{ padding: "10px", backgroundColor: "#f9f9f9" }}>
+        <p className="flex flex-row text-center justify-center text-black">
+          {`Resume in`}
+          <Filter_Select label="Filter Resume" />
+        </p>
         <div className="flex flex-col md:flex-row gap-2">
           <div className="w-full md:w-1/5 flex flex-col justify-center items-center text-center">
             {/* Coach Image */}
@@ -65,18 +89,20 @@ export default function Expanded_Row({ history, rowData }: Props) {
             </div>
             {/* Coach Info */}
             <div className="order-1 md:order-2">
-              <strong>{rowData.name}</strong>
+              <strong>
+                {rowData.name} <span></span>{" "}
+              </strong>
               <div className="flex flex-row gap-2 justify-center">
                 <p>{`Age: ${rowData.age} `}</p>
-                <p>{`Experience: ${rowData.exp} ${rowData.exp > 1 ? "yrs." : "yr."}`}</p>
+                <p>{`Exp: ${rowData.exp} ${rowData.exp > 1 ? "yrs." : "yr."}`}</p>
               </div>
               <p>{`Team: ${Team_Abbrevs.get(rowData.team)}`}</p>
               <p className="text-xs italic">{`(in ${rowData.year})`}</p>
             </div>
           </div>
           <div className="w-full md:w-2/5 flex flex-col gap-x-2">
-            <Coach_History history={history} />
-            <Coach_Awards history={history} />
+            <Coach_History history={coachData} />
+            <Coach_Awards history={coachData} />
             {"Similar Coaches"}
           </div>
           <div className="w-full md:w-2/5">

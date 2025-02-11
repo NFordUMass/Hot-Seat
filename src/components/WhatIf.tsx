@@ -79,6 +79,7 @@ export default function WhatIf({
             name="Coach"
             value={row_index}
             id="coach"
+            text_color="white"
             options={source.map((row) => row.name)}
             helper=""
             onChange={(event) => setRow_Index(parseInt(event.target.value))}
@@ -91,6 +92,7 @@ export default function WhatIf({
             value={record}
             id="record"
             options={Records}
+            text_color="white"
             helper=""
             onChange={(event) => {
               setRecord(parseInt(event.target.value));
@@ -107,6 +109,7 @@ export default function WhatIf({
             value={round}
             id="playoff_result"
             options={Plyf_Round}
+            text_color="white"
             helper=""
             onChange={(event) => {
               setRound(parseInt(event.target.value));

@@ -1,4 +1,4 @@
-import type { seasonRow } from "../../supabase/types";
+import type { coachRow, seasonRow } from "../../supabase/types";
 
 export type sortkey = "name" | "team" | "prob" | "fired" | 'year';
 
@@ -63,6 +63,33 @@ export function get_abbrev(team:string,rev=false){
     return rev ? Fix_Abbrevs_Reverse.has(team) ? Fix_Abbrevs_Reverse.get(team) : team 
                 : Fix_Abbrevs.has(team) ? Fix_Abbrevs.get(team) : team;
 }
+
+export function filterCoachRowByYear(coach: coachRow, year: number): coachRow {
+    // Find the last index where year is <= given year
+    const lastIndex = coach.years.findIndex((y) => y > year);
+    const endIndex = lastIndex === -1 ? coach.years.length : lastIndex; // If all years are valid, use full length
+  
+    // Helper function to slice arrays
+    const sliceArray = <T>(arr: T[]) => arr.slice(0, endIndex);
+  
+    return {
+      ...coach,
+      years: sliceArray(coach.years),
+      teams: sliceArray(coach.teams),
+      heat: sliceArray(coach.heat),
+      wins: sliceArray(coach.wins),
+      losses: sliceArray(coach.losses),
+      rounds: sliceArray(coach.rounds),
+      wins_plyf: sliceArray(coach.wins_plyf),
+      losses_plyf: sliceArray(coach.losses_plyf),
+      win_pcts: sliceArray(coach.win_pcts),
+      coy_ranks: sliceArray(coach.coy_ranks),
+      coy_shares: sliceArray(coach.coy_shares),
+      colors_1: sliceArray(coach.colors_1),
+      colors_2: sliceArray(coach.colors_2),
+    };
+}
+  
 
 // TODO: make normal
 export function get_random_input():[number,number]{
