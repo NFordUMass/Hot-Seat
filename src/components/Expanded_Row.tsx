@@ -10,7 +10,6 @@ import Coach_Awards from "./Coach_Awards.tsx";
 import Coach_History from "./Coach_History.tsx";
 import CoachImage from "./CoachImage.tsx";
 import SelectInput from "./helper/Select.tsx";
-import Filter_Select from "./helper/Filter_Select.tsx";
 
 interface Props {
   history: coachRow;
@@ -43,6 +42,7 @@ function space_labels<X>(
 
 export default function Expanded_Row({ history, rowData }: Props) {
   const [filter, setFilter] = useState({ filter: false, year: rowData.year });
+  const filterValue = filter ? filter.year.toString() : "All Time";
   const coachData = filter.filter
     ? filterCoachRowByYear(history, filter.year)
     : history;
@@ -77,9 +77,25 @@ export default function Expanded_Row({ history, rowData }: Props) {
   return (
     <tr className="w-full">
       <td colSpan={6} style={{ padding: "10px", backgroundColor: "#f9f9f9" }}>
-        <p className="flex flex-row text-center justify-center text-black">
+        <p className="flex flex-row text-center justify-center text">
           {`Resume in`}
-          <Filter_Select label="Filter Resume" />
+          <SelectInput
+            name="Resume Filter"
+            value={filterValue}
+            id="resume_filter"
+            options={[
+              "All Time",
+              ...history.years.map((yr: number) => yr.toString()),
+            ]}
+            text_color="black"
+            helper=""
+            onChange={() => {
+              setFilter((prev) => ({
+                filter: !prev.filter,
+                year: rowData.year,
+              }));
+            }}
+          />
         </p>
         <div className="flex flex-col md:flex-row gap-2">
           <div className="w-full md:w-1/5 flex flex-col justify-center items-center text-center">
