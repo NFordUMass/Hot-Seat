@@ -10,12 +10,12 @@ export const Games = 17;
 export const Records:string[] = Array.from({ length: 18 }).map((_, i) => `${i}-${Games - i}`);
 
 export const Plyf_Round:string[] = [
-    'Miss Playoffs',
-    'Lose WC Round',
-    'Lose Div Round',
-    'Lose Title Game',
-    'Lose Super Bowl',
-    'Win Super Bowl'
+    'Misses Playoffs',
+    'Loses Wild Card Round',
+    'Loses Divisional Round',
+    'Loses Conference Championship',
+    'Loses Super Bowl',
+    'Wins Super Bowl'
 ]
 
 const Fix_Abbrevs:Map<string,string> = new Map<string,string>(
