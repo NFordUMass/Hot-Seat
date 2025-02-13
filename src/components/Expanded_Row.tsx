@@ -41,8 +41,11 @@ function space_labels<X>(
 }
 
 export default function Expanded_Row({ history, rowData }: Props) {
-  const [filter, setFilter] = useState({ filter: false, year: rowData.year });
-  const filterValue = filter ? filter.year.toString() : "All Time";
+  const [filter, setFilter] = useState({
+    filter: false,
+    year: rowData.year,
+    index: 0,
+  });
   const coachData = filter.filter
     ? filterCoachRowByYear(history, filter.year)
     : history;
@@ -77,26 +80,30 @@ export default function Expanded_Row({ history, rowData }: Props) {
   return (
     <tr className="w-full">
       <td colSpan={6} style={{ padding: "10px", backgroundColor: "#f9f9f9" }}>
-        <p className="flex flex-row text-center justify-center text">
-          {`Resume in`}
+        <div className="flex flex-row text-center justify-center items-center text">
+          <p className="text-lg">{`Resume`}</p>
           <SelectInput
-            name="Resume Filter"
-            value={filterValue}
+            name="Filter"
+            value={filter.index}
             id="resume_filter"
             options={[
               "All Time",
-              ...history.years.map((yr: number) => yr.toString()),
+              ...history.years.map((yr: number) => `in ${yr.toString()}`),
             ]}
+            border_color="black"
             text_color="black"
+            font_size="0.75rem"
+            minWidth="5rem"
             helper=""
-            onChange={() => {
+            onChange={(event) => {
               setFilter((prev) => ({
                 filter: !prev.filter,
                 year: rowData.year,
+                index: parseInt(event.target.value),
               }));
             }}
           />
-        </p>
+        </div>
         <div className="flex flex-col md:flex-row gap-2">
           <div className="w-full md:w-1/5 flex flex-col justify-center items-center text-center">
             {/* Coach Image */}

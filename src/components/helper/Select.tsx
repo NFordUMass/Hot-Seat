@@ -10,7 +10,10 @@ interface Props {
   id: string;
   options: string[];
   text_color: string;
+  border_color: string;
   helper: string;
+  font_size?: string;
+  minWidth?: string;
   onChange: (event: SelectChangeEvent) => void;
 }
 
@@ -20,7 +23,10 @@ export default function SelectInput({
   id,
   options,
   text_color,
+  border_color = "white",
   helper = "",
+  font_size = "1.25rem",
+  minWidth = "10rem",
   onChange,
 }: Props) {
   return (
@@ -28,16 +34,16 @@ export default function SelectInput({
       <FormControl
         sx={{
           m: 0.5,
-          minWidth: "10rem",
+          minWidth: minWidth,
           "& .MuiOutlinedInput-root": {
             "& fieldset": {
-              borderColor: "white", // Change border color to white
+              borderColor: border_color, // Use border_color param
             },
             "&:hover fieldset": {
-              borderColor: "white", // Border color on hover
+              borderColor: border_color, // Use border_color param
             },
             "&.Mui-focused fieldset": {
-              borderColor: "white", // Border color when focused
+              borderColor: border_color, // Use border_color param
             },
           },
         }}
@@ -57,7 +63,7 @@ export default function SelectInput({
           sx={{
             color: text_color,
             borderColor: text_color,
-            fontSize: "1.25rem",
+            fontSize: font_size,
           }}
         >
           {options.map((option, i) => (
