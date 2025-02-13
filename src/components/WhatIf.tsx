@@ -73,7 +73,7 @@ export default function WhatIf({
   return row ? (
     <div className="flex flex-row">
       <div className="w-1/2">
-        <p className="text-xs md:text-lg lg:text-2xl py-1">{`in ${row.year + 1},`}</p>
+        <p className="text-xs md:text-lg lg:text-2xl py-1">{`in ${row.year}-${(row.year + 1) % 100},`}</p>
         <div className="flex flex-row gap-2 py-1 items-center">
           <SelectInput
             name="Coach"

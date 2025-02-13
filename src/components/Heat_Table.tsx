@@ -26,9 +26,9 @@ export default function Heat_Table({ mode, coachRows, source }: Props) {
 
   return (
     // TODO: header row scaling with text overflow of coach name
-    <table className="w-full text-left bg-white text-black">
+    <table className="w-full text-left bg-white text-black rounded-lg">
       <thead>
-        <tr className="text-sm md:text-base lg:text-xl border-t border-b">
+        <tr className="text-sm md:text-base lg:text-xl border-b">
           {[
             { key: "year", label: "Year" },
             { key: "team", label: "Team" },

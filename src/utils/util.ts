@@ -91,16 +91,26 @@ export function filterCoachRowByYear(coach: coachRow, year: number): coachRow {
 }
   
 
-// TODO: make normal
 export function get_random_input():[number,number]{
-    const round = Math.floor(Math.random() * 6);
+    const raw = Math.floor(Math.random() * 10);
+    const round = raw > 5 ? 0 : raw;
     let record = 0;
+    
+    // Use beta distribution to skew towards higher records
+    const beta = () => {
+        const u = Math.random();
+        const v = Math.random();
+        return Math.pow(u, 1/3) / (Math.pow(u, 1/3) + Math.pow(1-v, 1/3));
+    };
+
     if(round == 0){
-        record = Math.floor(Math.random() * (11)) // 0-17 to 10-7
+        // For non-playoff teams (0-17 to 10-7), skew towards middle-higher records
+        record = Math.floor(beta() * 11); 
     }
     else {
         record = Math.floor(Math.random() * (9)) + 9; // 9-8 to 17-0
     }
+    
     return [round,record];
 }
 
