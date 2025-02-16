@@ -11,6 +11,7 @@ import Coach_Awards from "./Coach_Awards.tsx";
 import Coach_History from "./Coach_History.tsx";
 import CoachImage from "./CoachImage.tsx";
 import SelectInput from "./helper/Select.tsx";
+import Coach_Chart from "./Coach_Chart.tsx";
 
 interface Props {
   history: coachRow;
@@ -62,13 +63,17 @@ export default function Expanded_Row({ history, rowData }: Props) {
 
   const heat_spaced: (number | null)[] = space_labels_num(coachData.heat);
 
+  const outcomes_spaced: (number | null)[] = space_labels_num(
+    coachData.outcomes
+  );
+
   const win_pcts_spaced: (number | null)[] = space_labels_num(
     coachData.win_pcts
   );
 
   const labels_spaced: (string | null)[] = space_labels_num(
     coachData.years
-  ).map((year) => (year != null ? year.toString() : year));
+  ).map((year) => (year != null ? `'${(year % 100).toString()}` : year));
 
   const colors_1__rgb = space_labels_str(coachData.colors_1).map((color) =>
     color != null ? hexToRgba(color, 0.5) : "000000"
@@ -160,10 +165,11 @@ export default function Expanded_Row({ history, rowData }: Props) {
                     ? null
                     : `${rowData.exp > 1 ? "Includes" : "Showing"} Vegas Expectation for 2025`}
                 </p>
-                <CoachChart
+                <Coach_Chart
                   heat={heat_spaced}
                   labels={labels_spaced}
                   win_pcts={win_pcts_spaced}
+                  outcomes={outcomes_spaced}
                   colors_1={colors_1__rgb}
                   colors_2={colors_2__rgb}
                 />

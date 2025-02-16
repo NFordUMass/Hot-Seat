@@ -63,6 +63,7 @@ export type coachRow = {
     win_pcts: number[];
     coy_ranks: number[];
     coy_shares: number[];
+    outcomes: number[];
     colors_1: string[];
     colors_2: string[];
   };
