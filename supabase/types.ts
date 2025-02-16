@@ -79,7 +79,12 @@ export type Database = {
       };
     };
     Views: {
-      [_ in never]: never;
+      agg_by_coach_view: {
+        Row: coachRow;
+        Insert: coachRow;
+        Update: coachRow;
+        Relationships: [];
+      };
     };
     Functions: {
       agg_by_coach: {

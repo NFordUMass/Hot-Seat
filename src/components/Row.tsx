@@ -48,7 +48,49 @@ export default function Row({
         </td>
       </tr>
       {expanded == `${rowData.id}_${rowData.year}` && (
-        <Expanded_Row rowData={rowData} history={history} />
+        <Expanded_Row
+          rowData={rowData}
+          history={
+            rowData.tenure > 1
+              ? {
+                  ...history,
+                  years: history.years.filter((y) => y <= 2024),
+                  teams: history.teams.filter(
+                    (_, i) => history.years[i] <= 2024
+                  ),
+                  heat: history.heat.filter((_, i) => history.years[i] <= 2024),
+                  wins: history.wins.filter((_, i) => history.years[i] <= 2024),
+                  losses: history.losses.filter(
+                    (_, i) => history.years[i] <= 2024
+                  ),
+                  rounds: history.rounds.filter(
+                    (_, i) => history.years[i] <= 2024
+                  ),
+                  wins_plyf: history.wins_plyf.filter(
+                    (_, i) => history.years[i] <= 2024
+                  ),
+                  losses_plyf: history.losses_plyf.filter(
+                    (_, i) => history.years[i] <= 2024
+                  ),
+                  win_pcts: history.win_pcts.filter(
+                    (_, i) => history.years[i] <= 2024
+                  ),
+                  coy_ranks: history.coy_ranks.filter(
+                    (_, i) => history.years[i] <= 2024
+                  ),
+                  coy_shares: history.coy_shares.filter(
+                    (_, i) => history.years[i] <= 2024
+                  ),
+                  colors_1: history.colors_1.filter(
+                    (_, i) => history.years[i] <= 2024
+                  ),
+                  colors_2: history.colors_2.filter(
+                    (_, i) => history.years[i] <= 2024
+                  ),
+                }
+              : history
+          }
+        />
       )}
     </React.Fragment>
   );

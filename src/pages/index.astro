@@ -18,7 +18,9 @@ let coaches: coachRow[] = [];
 if (supabase) {
   const { data, error: err } = await supabase.from(tableName).select("*");
   console.log(err);
-  const { data: temp, error: _ } = await supabase.rpc("agg_by_coach");
+  const { data: temp, error: _ } = await supabase
+    .from("agg_by_coach_view")
+    .select("*");
   if (temp == null) {
     coaches = [];
   }

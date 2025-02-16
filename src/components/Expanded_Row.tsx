@@ -81,36 +81,39 @@ export default function Expanded_Row({ history, rowData }: Props) {
   return (
     <tr className="w-full">
       <td colSpan={6} style={{ padding: "10px", backgroundColor: "#f9f9f9" }}>
-        <div className="flex flex-row text-center justify-center items-center text">
-          <p className="text-lg">{`Showing Resume`}</p>
-          {/* TODO: highlight year for rowData.year */}
-          <SelectInput
-            name="Filter"
-            value={
-              filter.index == history.years.length - 1 ? 0 : filter.index + 1
-            }
-            id="resume_filter"
-            options={[
-              "All Time",
-              ...history.years.map((yr: number) => `in ${yr.toString()}`),
-            ]}
-            border_color="black"
-            text_color="black"
-            font_size="0.75rem"
-            minWidth="5rem"
-            helper=""
-            onChange={(event) => {
-              setFilter((prev) => {
-                const value = parseInt(event.target.value);
-                const isAll = value === 0;
-                return {
-                  filter: !isAll,
-                  year: isAll ? 2024 : history.years[value - 1],
-                  index: isAll ? history.years.length - 1 : value - 1,
-                };
-              });
-            }}
-          />
+        <div className="flex flex-row text-center justify-center items-center text relative">
+          <div className="absolute w-full h-0.5 bg-black"></div>
+          <div className="z-10 flex flex-row items-center gap-2 bg-[#f9f9f9] px-4">
+            <p className="text-lg">{`Showing Resume`}</p>
+            {/* TODO: highlight year for rowData.year */}
+            <SelectInput
+              name="Filter"
+              value={
+                filter.index == history.years.length - 1 ? 0 : filter.index + 1
+              }
+              id="resume_filter"
+              options={[
+                "All Time",
+                ...history.years.map((yr: number) => `in ${yr.toString()}`),
+              ]}
+              border_color="black"
+              text_color="black"
+              font_size="0.75rem"
+              minWidth="5rem"
+              helper=""
+              onChange={(event) => {
+                setFilter((prev) => {
+                  const value = parseInt(event.target.value);
+                  const isAll = value === 0;
+                  return {
+                    filter: !isAll,
+                    year: isAll ? 2024 : history.years[value - 1],
+                    index: isAll ? history.years.length - 1 : value - 1,
+                  };
+                });
+              }}
+            />
+          </div>
         </div>
         <div className="flex flex-col md:flex-row gap-2">
           <div className="w-full md:w-1/5 flex flex-col justify-center items-center text-center">
@@ -136,14 +139,21 @@ export default function Expanded_Row({ history, rowData }: Props) {
             <Coach_Awards history={coachData} />
             {/* TODO: "Similar Coaches" */}
           </div>
+          {/* TODO: plot Vegas wins not .500 record */}
           <div className="w-full md:w-2/5">
-            <CoachChart
-              heat={heat_spaced}
-              labels={labels_spaced}
-              win_pcts={win_pcts_spaced}
-              colors_1={colors_1__rgb}
-              colors_2={colors_2__rgb}
-            />
+            <p className="text-sm md:text-base font-bold my-1 text-center">
+              Heat Index over Time
+            </p>
+            <>
+              <p>{`${rowData.exp > 1 ? "Includes" : "Showing"} Vegas Expectation for 2025`}</p>
+              <CoachChart
+                heat={heat_spaced}
+                labels={labels_spaced}
+                win_pcts={win_pcts_spaced}
+                colors_1={colors_1__rgb}
+                colors_2={colors_2__rgb}
+              />
+            </>
           </div>
         </div>
       </td>
