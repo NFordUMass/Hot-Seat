@@ -15,7 +15,7 @@ export default function Content({ source, coaches }: Props) {
   const numYears = 30;
 
   const [mode, setMode] = useState<Mode>({ by: "year" });
-  const [year, setYear] = useState(2024);
+  const [year, setYear] = useState(2025);
   const [team, setTeam] = useState("NYJ");
 
   function randomTeam() {

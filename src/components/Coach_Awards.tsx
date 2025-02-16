@@ -74,6 +74,9 @@ export default function Coach_Awards({ history }: Props) {
             <div className="w-full">
               {coy_years.length === 0 ? null : (
                 <>
+                  <p className="text-[0.625rem] md:text-xs px-1 pb-1">
+                    {"years receiving votes:"}
+                  </p>
                   <div className="w-full grid grid-cols-auto-fit gap-0.5 text-center">
                     {coy_years.map((year, i) => (
                       <p
@@ -84,13 +87,13 @@ export default function Coach_Awards({ history }: Props) {
                       </p>
                     ))}
                   </div>
-                  <div className="text-center border border-collapse border-gray-500 my-1">
-                    <p className="text-xs px-1">{"years receiving votes"}</p>
-                    <p className="text-xs italic px-1">
+                  {Math.min(...coy_ranks.filter((rank) => rank > 0)) == 1 ? (
+                    <p className="text-[0.625rem] md:text-xs italic px-1 py-1">
+                      {"("}
                       <span className="font-bold">{"bold"}</span>
-                      {" indicates winner"}
+                      {" indicates winner)"}
                     </p>
-                  </div>
+                  ) : null}
                 </>
               )}
             </div>

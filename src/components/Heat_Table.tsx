@@ -15,7 +15,9 @@ export default function Heat_Table({ mode, coachRows, source }: Props) {
     key: "prob",
     dir: "desc",
   });
-  const [expanded, setExpanded] = useState("null_2024");
+  const [expanded, setExpanded] = useState(
+    `${coaches[0].id}_${coaches[0].year}`
+  );
 
   useEffect(() => {
     setCoaches(source);

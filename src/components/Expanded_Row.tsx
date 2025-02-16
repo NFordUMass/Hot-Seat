@@ -81,80 +81,96 @@ export default function Expanded_Row({ history, rowData }: Props) {
   return (
     <tr className="w-full">
       <td colSpan={6} style={{ padding: "10px", backgroundColor: "#f9f9f9" }}>
-        <div className="flex flex-row text-center justify-center items-center text relative">
-          <div className="absolute w-full h-0.5 bg-black"></div>
-          <div className="z-10 flex flex-row items-center gap-2 bg-[#f9f9f9] px-4">
-            <p className="text-lg">{`Showing Resume`}</p>
-            {/* TODO: highlight year for rowData.year */}
-            <SelectInput
-              name="Filter"
-              value={
-                filter.index == history.years.length - 1 ? 0 : filter.index + 1
-              }
-              id="resume_filter"
-              options={[
-                "All Time",
-                ...history.years.map((yr: number) => `in ${yr.toString()}`),
-              ]}
-              border_color="black"
-              text_color="black"
-              font_size="0.75rem"
-              minWidth="5rem"
-              helper=""
-              onChange={(event) => {
-                setFilter((prev) => {
-                  const value = parseInt(event.target.value);
-                  const isAll = value === 0;
-                  return {
-                    filter: !isAll,
-                    year: isAll ? 2024 : history.years[value - 1],
-                    index: isAll ? history.years.length - 1 : value - 1,
-                  };
-                });
-              }}
-            />
-          </div>
-        </div>
-        <div className="flex flex-col md:flex-row gap-2">
-          <div className="w-full md:w-1/5 flex flex-col justify-center items-center text-center">
-            {/* Coach Image */}
-            <div className="order-2 md:order-1">
-              <CoachImage rowData={rowData} />
-            </div>
-            {/* Coach Info */}
-            <div className="order-1 md:order-2">
-              <strong className="text-sm md:text-lg">
-                {rowData.name} <span></span>{" "}
-              </strong>
-              <div className="flex flex-row gap-2 justify-center">
-                <p>{`Age: ${rowData.age - (Current_Year - 1 - history["years"][filter.index])}`}</p>
-                <p>{`Exp: ${filter.index + 1} ${filter.index > 0 ? "yrs." : "yr."}`}</p>
-              </div>
-              <p>{`Team: ${Team_Abbrevs.get(history["teams"][filter.index])}`}</p>
-              <p className="text-xs italic">{`(in ${history["years"][filter.index]})`}</p>
-            </div>
-          </div>
-          <div className="w-full md:w-2/5 flex flex-col gap-x-2">
-            <Coach_History history={coachData} />
-            <Coach_Awards history={coachData} />
-            {/* TODO: "Similar Coaches" */}
-          </div>
-          {/* TODO: plot Vegas wins not .500 record */}
-          <div className="w-full md:w-2/5">
-            <p className="text-sm md:text-base font-bold my-1 text-center">
-              Heat Index over Time
-            </p>
-            <>
-              <p>{`${rowData.exp > 1 ? "Includes" : "Showing"} Vegas Expectation for 2025`}</p>
-              <CoachChart
-                heat={heat_spaced}
-                labels={labels_spaced}
-                win_pcts={win_pcts_spaced}
-                colors_1={colors_1__rgb}
-                colors_2={colors_2__rgb}
+        <div className="relative">
+          <div className="flex flex-row text-center justify-center items-center text relative">
+            <div className="absolute w-full h-0.5 bg-gray-500"></div>
+            <div className="z-10 flex flex-row items-center gap-2 bg-[#f9f9f9] px-4">
+              <p className="text-sm sm:text-base md:text-lg">{`Showing Resume`}</p>
+              {/* TODO: highlight year for rowData.year */}
+              <SelectInput
+                name="Filter"
+                value={
+                  filter.index == history.years.length - 1
+                    ? 0
+                    : filter.index + 1
+                }
+                id="resume_filter"
+                options={[
+                  "All Time",
+                  ...history.years.map((yr: number) => `in ${yr.toString()}`),
+                ]}
+                border_color="black"
+                text_color="black"
+                font_size="0.75rem"
+                minWidth="5rem"
+                helper=""
+                onChange={(event) => {
+                  setFilter((prev) => {
+                    const value = parseInt(event.target.value);
+                    const isAll = value === 0;
+                    return {
+                      filter: !isAll,
+                      year: isAll ? 2024 : history.years[value - 1],
+                      index: isAll ? history.years.length - 1 : value - 1,
+                    };
+                  });
+                }}
               />
-            </>
+            </div>
           </div>
+          <div className="flex flex-col md:flex-row gap-2">
+            <div className="w-full md:w-1/5 flex flex-col justify-center items-center text-center">
+              {/* Coach Image */}
+              <div className="order-2 md:order-1">
+                <CoachImage rowData={rowData} />
+              </div>
+              {/* Coach Info */}
+              <div className="order-1 md:order-2">
+                <strong className="text-sm md:text-lg">
+                  {rowData.name} <span></span>{" "}
+                </strong>
+                <div className="flex flex-row gap-2 justify-center">
+                  <p>{`Age: ${rowData.age - (Current_Year - 1 - history["years"][filter.index])}`}</p>
+                  <p>{`Exp: ${filter.index + 1} ${filter.index > 0 ? "yrs." : "yr."}`}</p>
+                </div>
+                <p>{`Team: ${Team_Abbrevs.get(history["teams"][filter.index])}`}</p>
+                <p className="text-xs italic">{`(in ${history["years"][filter.index]})`}</p>
+              </div>
+            </div>
+            <div
+              className={`md:hidden h-2 border-b-2 border-gray-500 text-center`}
+            />
+            <div className="w-full md:w-2/5 text-center">
+              <p className="text-sm md:text-base font-bold mb-1">Statistics</p>
+              <div className="flex flex-col gap-x-2">
+                <Coach_History history={coachData} />
+                <Coach_Awards history={coachData} />
+              </div>
+              {/* TODO: "Similar Coaches" */}
+            </div>
+            {/* TODO: plot Vegas wins not .500 record */}
+            <div className={`md:hidden h-2 border-b-2 border-gray-500`}></div>
+            <div className="w-full md:w-2/5">
+              <p className="text-sm md:text-base font-bold my-1 text-center">
+                Heat Index over Time
+              </p>
+              <div className="w-full text-center">
+                <p className="text-xs md:text-sm">
+                  {rowData.tenure > 1
+                    ? null
+                    : `${rowData.exp > 1 ? "Includes" : "Showing"} Vegas Expectation for 2025`}
+                </p>
+                <CoachChart
+                  heat={heat_spaced}
+                  labels={labels_spaced}
+                  win_pcts={win_pcts_spaced}
+                  colors_1={colors_1__rgb}
+                  colors_2={colors_2__rgb}
+                />
+              </div>
+            </div>
+          </div>
+          <div className="my-2 md:my-4 h-2 border-b-2 border-gray-500"></div>
         </div>
       </td>
     </tr>

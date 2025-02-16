@@ -98,7 +98,7 @@ export default function Coach_History({ history }: Props) {
             { span: 2, text: "" },
           ].map((header, index) => (
             <th
-              className={`py-0 my-0 text-center ${index === 1 ? "border border-black" : ""}`}
+              className={`text-xs md:text-sm py-0 my-0 text-center font-normal ${index === 1 ? "border border-black" : ""}`}
               key={`header_${index}`}
               colSpan={header.span}
             >

@@ -1,6 +1,6 @@
 import React from "react";
 import type { coachRow, seasonRow } from "../../supabase/types.ts";
-import { imgPath } from "../utils/util";
+import { Current_Year, imgPath } from "../utils/util";
 import Expanded_Row from "./Expanded_Row.tsx";
 
 interface Props {
@@ -19,8 +19,7 @@ export default function Row({
   return (
     <React.Fragment key={`${rowData.id}_${rowData.year}`}>
       <tr
-        className="border-b border-neutral-600"
-        style={{ backgroundColor: rowData.fired ? "red" : "inherit" }}
+        className={`border-b border-neutral-600 ${rowData.fired ? "bg-red-500" : "bg-inherit"}`}
         onClick={() =>
           expanded == `${rowData.id}_${rowData.year}`
             ? setExpanded("")
@@ -43,8 +42,13 @@ export default function Row({
         <td className="text-sm md:text-base lg:text-xl">
           {rowData.prob.toFixed(2)}
         </td>
+        {/* Outcome */}
         <td className="text-sm md:text-base lg:text-xl">
-          {rowData.fired ? "Fired" : "Safe"}
+          {rowData.year != Current_Year
+            ? rowData.fired
+              ? "Fired"
+              : "Safe"
+            : "TBD"}
         </td>
       </tr>
       {expanded == `${rowData.id}_${rowData.year}` && (
