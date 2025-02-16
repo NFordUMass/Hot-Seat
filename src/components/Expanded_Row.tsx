@@ -1,6 +1,7 @@
 import { use, useState } from "react";
 import type { coachRow, seasonRow } from "../../supabase/types.ts";
 import {
+  Current_Year,
   filterCoachRowByYear,
   hexToRgba,
   Team_Abbrevs,
@@ -44,7 +45,7 @@ export default function Expanded_Row({ history, rowData }: Props) {
   const [filter, setFilter] = useState({
     filter: false,
     year: rowData.year,
-    index: 0,
+    index: history.years.length - 1,
   });
   const coachData = filter.filter
     ? filterCoachRowByYear(history, filter.year)
@@ -81,10 +82,13 @@ export default function Expanded_Row({ history, rowData }: Props) {
     <tr className="w-full">
       <td colSpan={6} style={{ padding: "10px", backgroundColor: "#f9f9f9" }}>
         <div className="flex flex-row text-center justify-center items-center text">
-          <p className="text-lg">{`Resume`}</p>
+          <p className="text-lg">{`Showing Resume`}</p>
+          {/* TODO: highlight year for rowData.year */}
           <SelectInput
             name="Filter"
-            value={filter.index}
+            value={
+              filter.index == history.years.length - 1 ? 0 : filter.index + 1
+            }
             id="resume_filter"
             options={[
               "All Time",
@@ -96,11 +100,15 @@ export default function Expanded_Row({ history, rowData }: Props) {
             minWidth="5rem"
             helper=""
             onChange={(event) => {
-              setFilter((prev) => ({
-                filter: !prev.filter,
-                year: rowData.year,
-                index: parseInt(event.target.value),
-              }));
+              setFilter((prev) => {
+                const value = parseInt(event.target.value);
+                const isAll = value === 0;
+                return {
+                  filter: !isAll,
+                  year: isAll ? 2024 : history.years[value - 1],
+                  index: isAll ? history.years.length - 1 : value - 1,
+                };
+              });
             }}
           />
         </div>
@@ -112,21 +120,21 @@ export default function Expanded_Row({ history, rowData }: Props) {
             </div>
             {/* Coach Info */}
             <div className="order-1 md:order-2">
-              <strong>
+              <strong className="text-sm md:text-lg">
                 {rowData.name} <span></span>{" "}
               </strong>
               <div className="flex flex-row gap-2 justify-center">
-                <p>{`Age: ${rowData.age} `}</p>
-                <p>{`Exp: ${rowData.exp} ${rowData.exp > 1 ? "yrs." : "yr."}`}</p>
+                <p>{`Age: ${rowData.age - (Current_Year - 1 - history["years"][filter.index])}`}</p>
+                <p>{`Exp: ${filter.index + 1} ${filter.index > 0 ? "yrs." : "yr."}`}</p>
               </div>
-              <p>{`Team: ${Team_Abbrevs.get(rowData.team)}`}</p>
-              <p className="text-xs italic">{`(in ${rowData.year})`}</p>
+              <p>{`Team: ${Team_Abbrevs.get(history["teams"][filter.index])}`}</p>
+              <p className="text-xs italic">{`(in ${history["years"][filter.index]})`}</p>
             </div>
           </div>
           <div className="w-full md:w-2/5 flex flex-col gap-x-2">
             <Coach_History history={coachData} />
             <Coach_Awards history={coachData} />
-            {"Similar Coaches"}
+            {/* TODO: "Similar Coaches" */}
           </div>
           <div className="w-full md:w-2/5">
             <CoachChart

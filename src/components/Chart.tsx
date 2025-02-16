@@ -119,6 +119,9 @@ export default function CoachChart({
   return (
     // TODO: get rid of 2025 data in chart
     <div className="w-full">
+      <p className="text-sm md:text-base font-bold my-1 text-center">
+        Heat Index over Time
+      </p>
       <Chart type="bar" data={data} options={options} />
     </div>
   );

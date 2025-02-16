@@ -19,8 +19,8 @@ export default function CoachImage({ rowData }: Props) {
   }, [rowData.id]);
 
   return (
-    <div className="w-full">
-      <img src={image} alt={rowData.name} className="w-full" />
+    <div className="flex w-full justify-center">
+      <img src={image} alt={rowData.name} className="w-3/4 md:w-full" />
     </div>
   );
 }

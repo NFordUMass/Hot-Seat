@@ -35,20 +35,18 @@ export default function Coach_Awards({ history }: Props) {
   );
   return (
     <div className="w-full text-center">
-      <p className="text-lg font-bold">{"Trophy Case"}</p>
-      <div className="flex flex-row gap-2">
+      <p className="text-sm md:text-base font-bold my-1">Trophy Case</p>
+      <div className="flex flex-row gap-2 text-xs md:text-sm">
         {/* Postseason */}
         <div className="w-3/5 text-center">
           <p>{`Postseason Appearances: x${plyf_count}`}</p>
-          {plyf_count == 0 ? (
-            "N/A"
-          ) : (
-            <div className="grid grid grid-cols-auto-fit gap-1 justify-center">
+          {plyf_count == 0 ? null : (
+            <div className="flex flex-row flex-wrap gap-1 justify-center">
               {Array.from({ length: plyf_count }).map((_, i) => (
                 <img
                   key={i}
                   src={"images/misc/playoffs_blank.png"}
-                  className="w-full max-w-8 lg:max-w-12"
+                  className="w-8 lg:w-12"
                   alt="playoff trophy"
                 />
               ))}
@@ -74,14 +72,12 @@ export default function Coach_Awards({ history }: Props) {
 
           <div className="w-full flex flex-row text-center items-center pt-1 my-1 mx-2">
             <div className="w-full">
-              {coy_years.length === 0 ? (
-                <p className="w-full text-xs text-center">{"None"}</p>
-              ) : (
+              {coy_years.length === 0 ? null : (
                 <>
                   <div className="w-full grid grid-cols-auto-fit gap-0.5 text-center">
                     {coy_years.map((year, i) => (
                       <p
-                        key={year} // Added key to avoid React warnings
+                        key={year}
                         className={`text-xs ${coy_ranks[i] === 1 ? "font-bold" : ""}`}
                       >
                         {year}

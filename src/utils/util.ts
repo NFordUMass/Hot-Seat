@@ -6,14 +6,15 @@ export interface Mode {
     by: "year" | "team";
 }
 
+export const Current_Year = 2025;
 export const Games = 17;
 export const Records:string[] = Array.from({ length: 18 }).map((_, i) => `${i}-${Games - i}`);
 
 export const Plyf_Round:string[] = [
     'Misses Playoffs',
-    'Loses Wild Card Round',
-    'Loses Divisional Round',
-    'Loses Conference Championship',
+    'Loses WC Round',
+    'Loses Div Round',
+    'Loses Title Game',
     'Loses Super Bowl',
     'Wins Super Bowl'
 ]

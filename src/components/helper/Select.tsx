@@ -50,7 +50,7 @@ export default function SelectInput({
       >
         <InputLabel
           id="demo-simple-select-helper-label"
-          sx={{ color: text_color }}
+          sx={{ color: text_color, fontSize: "0.75rem" }}
         >
           {name}
         </InputLabel>

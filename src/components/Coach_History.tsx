@@ -89,7 +89,7 @@ export default function Coach_History({ history }: Props) {
   );
 
   return (
-    <table className="w-full border-collapse text-center">
+    <table className="w-full border-collapse text-center text-xs md:text-sm lg:text-base">
       <thead>
         <tr className="py-0 my-0">
           {[
@@ -109,7 +109,7 @@ export default function Coach_History({ history }: Props) {
         <tr>
           {["Team", "W", "L", "W", "L", "from", "to"].map((col, index) => (
             <th
-              className="border border-black px-4 py-2"
+              className="border border-black p-1 md:px-4 md:py-2"
               key={`${col}_${index}`}
             >
               {col}
@@ -136,7 +136,9 @@ export default function Coach_History({ history }: Props) {
                     className="w-6 lg:w-8"
                     alt={row.team}
                   />
-                  {`${row.duration} yr${row.duration <= 1 ? "" : "s"}.`}
+                  <p className="text-xs md:text-sm lg:text-base">
+                    {`${row.duration} yr${row.duration <= 1 ? "" : "s"}.`}
+                  </p>
                 </div>
               )}
             </td>
