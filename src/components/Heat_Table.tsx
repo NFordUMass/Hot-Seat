@@ -16,7 +16,7 @@ export default function Heat_Table({ mode, coachRows, source }: Props) {
     dir: "desc",
   });
   const [expanded, setExpanded] = useState(
-    `${coaches[0].id}_${coaches[0].year}`
+    window.innerWidth >= 1536 ? `${coaches[0].id}_${coaches[0].year}` : ""
   );
 
   useEffect(() => {
@@ -29,9 +29,9 @@ export default function Heat_Table({ mode, coachRows, source }: Props) {
   return (
     // TODO: header row scaling with text overflow of coach name
     <div className="w-full overflow-x-auto">
-      <table className="max-w-full text-left bg-white text-black rounded-lg">
+      <table className="w-full text-left bg-white text-black rounded-lg">
         <thead>
-          <tr className="text-sm md:text-base lg:text-xl border-b">
+          <tr className="text-sm lg:text-xl border-b">
             {[
               { key: "year", label: "Year" },
               { key: "team", label: "Team" },
@@ -41,7 +41,7 @@ export default function Heat_Table({ mode, coachRows, source }: Props) {
             ].map((col) => (
               <th
                 key={`label_${col.key}`}
-                className="px-2 whitespace-nowrap"
+                className="px-1 whitespace-nowrap"
                 onClick={() =>
                   handleSort({
                     data: coaches,
@@ -53,7 +53,14 @@ export default function Heat_Table({ mode, coachRows, source }: Props) {
                   })
                 }
               >
-                {col.label}
+                {col.key == "prob" ? (
+                  <>
+                    <span className="lg:hidden">Heat</span>
+                    <span className="hidden lg:inline">Heat Index</span>
+                  </>
+                ) : (
+                  col.label
+                )}
               </th>
             ))}
             <th className="px-2 whitespace-nowrap">+/-</th>

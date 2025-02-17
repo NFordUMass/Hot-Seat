@@ -70,7 +70,7 @@ export default function Coach_Awards({ history }: Props) {
             </div>
           </div>
 
-          <div className="w-full flex flex-row text-center items-center pt-1 my-1 mx-2">
+          <div className="w-full flex flex-row text-center items-center lg:pt-1 my-0.5 mx-2">
             <div className="w-full">
               {coy_years.length === 0 ? null : (
                 <>

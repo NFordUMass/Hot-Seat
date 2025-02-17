@@ -18,5 +18,5 @@ export default function CoachImage({ rowData }: Props) {
     fetchImage();
   }, [rowData.id]);
 
-  return <img src={image} alt={rowData.name} className="w-3/4 md:w-full" />;
+  return <img src={image} alt={rowData.name} className="w-full" />;
 }

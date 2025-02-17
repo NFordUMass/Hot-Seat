@@ -204,7 +204,7 @@ export default function Coach_Chart({
   };
   return (
     // TODO: get rid of 2025 data in chart
-    <div className="w-full">
+    <div className="w-full flex justify-center">
       <Chart type="bar" data={data} options={options} />
     </div>
   );

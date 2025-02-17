@@ -115,7 +115,7 @@ export default function Expanded_Row({ history, rowData }: Props) {
           <div className="flex flex-row text-center justify-center items-center text relative">
             <div className="absolute w-full h-0.5 bg-gray-500"></div>
             <div className="z-10 flex flex-row items-center gap-2 bg-[#f9f9f9] px-4">
-              <p className="text-sm sm:text-base md:text-lg">{`Showing Resume`}</p>
+              <p className="text-sm sm:text-base 2xl:text-lg">{`Showing Resume`}</p>
               {/* TODO: highlight year for rowData.year */}
               <SelectInput
                 name="Filter"
@@ -148,17 +148,17 @@ export default function Expanded_Row({ history, rowData }: Props) {
               />
             </div>
           </div>
-          <div className="flex flex-col md:flex-row gap-2">
-            <div className="w-full md:w-1/5 flex flex-col justify-center items-center text-center">
+          <div className="flex flex-col 2xl:flex-row gap-2">
+            <div className="w-full 2xl:w-1/5 flex flex-row 2xl:flex-col justify-center items-center text-center">
               {/* Coach Image */}
-              <div className="order-2 md:order-1">
-                <div className="w-full flex justify-center">
+              <div className="order-2 2xl:order-1 w-2/5 2xl:w-full">
+                <div className="w-full 2xl:flex 2xl:justify-center">
                   <CoachImage rowData={rowData} />
                 </div>
               </div>
               {/* Coach Info */}
-              <div className="order-1 md:order-2">
-                <strong className="text-sm md:text-lg">
+              <div className="order-1 2xl:order-2 w-3/5 2xl:w-full">
+                <strong className="text-sm 2xl:text-lg">
                   {rowData.name} <span></span>{" "}
                 </strong>
                 <div className="flex flex-row gap-2 justify-center">
@@ -170,10 +170,10 @@ export default function Expanded_Row({ history, rowData }: Props) {
               </div>
             </div>
             <div
-              className={`md:hidden h-2 border-b-2 border-gray-500 text-center`}
+              className={`2xl:hidden h-2 border-b-2 border-gray-500 text-center`}
             />
-            <div className="w-full md:w-2/5 text-center">
-              <p className="text-sm md:text-base font-bold mb-1">Statistics</p>
+            <div className="w-full 2xl:w-2/5 text-center">
+              <p className="text-sm 2xl:text-base font-bold mb-1">Statistics</p>
               <div className="flex flex-col gap-x-2">
                 <Coach_History history={coachData} />
                 <Coach_Awards history={coachData} />
@@ -181,12 +181,12 @@ export default function Expanded_Row({ history, rowData }: Props) {
               {/* TODO: "Similar Coaches" */}
             </div>
             {/* TODO: plot Vegas wins not .500 record */}
-            <div className={`md:hidden h-2 border-b-2 border-gray-500`}></div>
-            <div className="w-full md:w-2/5">
-              <p className="text-sm md:text-base font-bold my-1 text-center">
+            <div className={`2xl:hidden h-2 border-b-2 border-gray-500`}></div>
+            <div className="w-full 2xl:w-2/5">
+              <p className="text-sm 2xl:text-base font-bold my-1 text-center">
                 Heat Index over Time
               </p>
-              <div className="w-full text-center">
+              <div className="w-full flex flex-col items-center">
                 {/* <CoachChart
                   heat={heat_spaced}
                   labels={labels_spaced}
@@ -204,17 +204,17 @@ export default function Expanded_Row({ history, rowData }: Props) {
                   colors_1={colors_1__rgb}
                   colors_2={colors_2__rgb}
                 />
-                <div className="flex flex-col gap-2 text-center">
-                  <p className="text-[0.5rem] md:text-xs text-gray-800">
+                <div className="flex flex-col gap-2 items-center">
+                  <p className="text-[0.5rem] 2xl:text-xs text-gray-800">
                     dotted line indicates ML prediction threshold
                   </p>
                   {records_spaced.length > 5 ? (
-                    <p className="text-[0.5rem] md:text-xs text-gray-800">
+                    <p className="text-[0.5rem] 2xl:text-xs text-gray-800">
                       {`records for best, worst, ${coachData.outcomes.includes(1) ? "current, and firing" : "and current"} year labeled`}
                     </p>
                   ) : null}
                   {coachData.outcomes.includes(1) ? (
-                    <p className="text-[0.5rem] md:text-xs text-gray-800">
+                    <p className="text-[0.5rem] 2xl:text-xs text-gray-800">
                       black filling indicates fired
                     </p>
                   ) : null}
@@ -222,7 +222,7 @@ export default function Expanded_Row({ history, rowData }: Props) {
               </div>
             </div>
           </div>
-          <div className="my-2 md:my-4 h-2 border-b-2 border-gray-500"></div>
+          <div className="my-2 2xl:my-4 h-2 border-b-2 border-gray-500"></div>
         </div>
       </td>
     </tr>
