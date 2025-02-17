@@ -9,7 +9,11 @@ interface Props {
   value: number | string;
   id: string;
   options: string[];
+  text_color: string;
+  border_color: string;
   helper: string;
+  font_size?: string;
+  minWidth?: string;
   onChange: (event: SelectChangeEvent) => void;
 }
 
@@ -18,7 +22,11 @@ export default function SelectInput({
   value,
   id,
   options,
+  text_color,
+  border_color = "white",
   helper = "",
+  font_size = "1.25rem",
+  minWidth = "10rem",
   onChange,
 }: Props) {
   return (
@@ -26,23 +34,23 @@ export default function SelectInput({
       <FormControl
         sx={{
           m: 0.5,
-          minWidth: 120,
+          minWidth: minWidth,
           "& .MuiOutlinedInput-root": {
             "& fieldset": {
-              borderColor: "white", // Change border color to white
+              borderColor: border_color, // Use border_color param
             },
             "&:hover fieldset": {
-              borderColor: "white", // Border color on hover
+              borderColor: border_color, // Use border_color param
             },
             "&.Mui-focused fieldset": {
-              borderColor: "white", // Border color when focused
+              borderColor: border_color, // Use border_color param
             },
           },
         }}
       >
         <InputLabel
           id="demo-simple-select-helper-label"
-          sx={{ color: "white" }}
+          sx={{ color: text_color, fontSize: "0.75rem" }}
         >
           {name}
         </InputLabel>
@@ -52,7 +60,11 @@ export default function SelectInput({
           value={value as string | undefined}
           label={name}
           onChange={onChange}
-          sx={{ color: "white", borderColor: "white", fontSize: "1.25rem" }}
+          sx={{
+            color: text_color,
+            borderColor: text_color,
+            fontSize: font_size,
+          }}
         >
           {options.map((option, i) => (
             <MenuItem value={i} key={`${id}_${i}`}>
@@ -60,7 +72,7 @@ export default function SelectInput({
             </MenuItem>
           ))}
         </Select>
-        <FormHelperText sx={{ color: "white" }}>{helper}</FormHelperText>
+        <FormHelperText sx={{ color: text_color }}>{helper}</FormHelperText>
       </FormControl>
     </div>
   );

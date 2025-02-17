@@ -12,14 +12,19 @@ export const prerender = false;
 const tableName = "heat_index";
 
 let heat_index: seasonRow[] | null = null;
-let coaches: coachRow[] | null = null;
+let coaches: coachRow[] = [];
 
 // Fetch frameworks data from Supabase if connection is set up
 if (supabase) {
   const { data, error: err } = await supabase.from(tableName).select("*");
   console.log(err);
-  const { data: temp, error: _ } = await supabase.rpc("agg_by_coach");
-  coaches = temp;
+  const { data: temp, error: _ } = await supabase
+    .from("agg_by_coach_view")
+    .select("*");
+  if (temp == null) {
+    coaches = [];
+  }
+  coaches = temp as coachRow[];
   heat_index = data;
 }
 
@@ -34,17 +39,19 @@ const [round, record] = get_random_input();
           <div class="flex flex-col md:flex-row gap-4">
             {/* Hot Seat Standings */}
             <div class="w-full md:w-1/2">
-              <h1 class="my-2 text-4xl text-center font-bold">
+              <h1 class="my-2 text-2xl md:text-4xl text-center font-bold">
                 Who is on the Hot Seat of NFL Head Coaches?
               </h1>
               <Content source={heat_index} coaches={coaches} client:only />
             </div>
             {/* What If Engine*/}
             <div class="w-full md:w-1/2">
-              <h1 class="my-2 text-4xl text-center font-bold">What If?</h1>
+              <h1 class="my-2 text-2xl md:text-4xl text-center font-bold">
+                What If?
+              </h1>
               <WhatIf
                 source={
-                  heat_index ? heat_index.filter((row) => row.year == 2024) : []
+                  heat_index ? heat_index.filter((row) => row.year == 2025) : []
                 }
                 round_init={round}
                 record_init={record}

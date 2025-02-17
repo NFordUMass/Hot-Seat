@@ -3,6 +3,12 @@
 ### TODO:
 
 - historical logos for older seasons
+- hide bar chart on graphs
+- shorten "heat index" to just "heat" when on small screen (likewise, use short name)
+- enable bar charts to be other features (like SRS, change in W-L %)
+- centering team abbrevs, and adding ... on end to indicate more (without cutting off any partially)
+  - maybe it swings back in gallery like fashion
+- in trophy case, have h2h against division rivals
 
 ### Deployment
 

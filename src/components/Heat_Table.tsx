@@ -15,7 +15,9 @@ export default function Heat_Table({ mode, coachRows, source }: Props) {
     key: "prob",
     dir: "desc",
   });
-  const [expanded, setExpanded] = useState("null_2024");
+  const [expanded, setExpanded] = useState(
+    `${coaches[0].id}_${coaches[0].year}`
+  );
 
   useEffect(() => {
     setCoaches(source);
@@ -25,9 +27,10 @@ export default function Heat_Table({ mode, coachRows, source }: Props) {
   }, [mode.by, source]);
 
   return (
-    <table className="w-full text-left bg-white text-black">
+    // TODO: header row scaling with text overflow of coach name
+    <table className="w-full text-left bg-white text-black rounded-lg">
       <thead>
-        <tr className="font-mono text-sm md:text-base lg:text-xl border-t border-b">
+        <tr className="text-sm md:text-base lg:text-xl border-b">
           {[
             { key: "year", label: "Year" },
             { key: "team", label: "Team" },
@@ -57,7 +60,9 @@ export default function Heat_Table({ mode, coachRows, source }: Props) {
       <tbody>
         {coaches?.map((row) => (
           <Row
-            history={coachRows.find((coach) => coach.id == row.id)}
+            history={
+              coachRows.find((coach) => coach.id == row.id) ?? ({} as coachRow)
+            }
             key={`${row.id}_${row.year}`}
             rowData={row}
             expanded={expanded}

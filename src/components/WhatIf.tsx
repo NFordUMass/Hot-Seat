@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import type { seasonRow } from "../../supabase/types";
 import { Games, Records, Plyf_Round } from "../utils/util";
 import SelectInput from "./helper/Select";
+import CoachImage from "./CoachImage";
 
 interface Props {
   source: seasonRow[];
@@ -21,6 +22,7 @@ export default function WhatIf({
   const [round, setRound] = useState(round_init);
   const [result, setResult] = useState(null);
 
+  // TODO: add exp coy_share
   useEffect(() => {
     row = source[row_index];
     setInputs({
@@ -47,10 +49,6 @@ export default function WhatIf({
     handleClick();
   }, [row_index, record, round]);
 
-  useEffect(() => {
-    handleClick();
-  }, []);
-
   const changeInputs = (key: string, value: number) => {
     setInputs({
       ...inputs,
@@ -75,12 +73,14 @@ export default function WhatIf({
   return row ? (
     <div className="flex flex-row">
       <div className="w-1/2">
-        <p className="text-xs md:text-lg lg:text-2xl py-1">{`in ${row.year + 1},`}</p>
+        <p className="text-xs md:text-lg lg:text-2xl py-1">{`in ${row.year}-${(row.year + 1) % 100},`}</p>
         <div className="flex flex-row gap-2 py-1 items-center">
           <SelectInput
             name="Coach"
             value={row_index}
             id="coach"
+            border_color="white"
+            text_color="white"
             options={source.map((row) => row.name)}
             helper=""
             onChange={(event) => setRow_Index(parseInt(event.target.value))}
@@ -93,6 +93,8 @@ export default function WhatIf({
             value={record}
             id="record"
             options={Records}
+            border_color="white"
+            text_color="white"
             helper=""
             onChange={(event) => {
               setRecord(parseInt(event.target.value));
@@ -109,6 +111,8 @@ export default function WhatIf({
             value={round}
             id="playoff_result"
             options={Plyf_Round}
+            border_color="white"
+            text_color="white"
             helper=""
             onChange={(event) => {
               setRound(parseInt(event.target.value));
@@ -129,11 +133,7 @@ export default function WhatIf({
         {/* Have precomputed suggested feature values */}
       </div>
       <div className="w-1/2">
-        <img
-          src={"images/coaches/BowlTo0.png"} // imgPath("nfl", rowData.team, 2024)
-          className="w-96"
-          alt={row.name}
-        />
+        <CoachImage rowData={row} />
       </div>
     </div>
   ) : (

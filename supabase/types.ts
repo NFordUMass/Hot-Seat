@@ -6,10 +6,12 @@ export type Json =
   | { [key: string]: Json | undefined }
   | Json[];
 
+
 export type seasonRow = {
   id: string;
   year: number;
   name: string;
+  age: number;
   team: string; // image path team abbrev
   tm: string; // display team abbrev
   color1: string;
@@ -20,18 +22,24 @@ export type seasonRow = {
   pred: number; // ML prediction, 1 if fired
 
   win_pct: number;
+  wins:number;
+  losses:number;
   round: number; // playoff round 1 to 5
   w_plyf: number;
+  l_plyf: number;
   coy_share: number; // % of coach of year vote received
   srs: number; // simple rating system, approx strength of team
   gm: number; // how many gms in current tenure
   owner: number; // how many owners in current tenure
   poc:boolean; // person of color
+  ou: number; // how much team outperformed over/under
 
   exp: number; // total years coaching
   tenure: number; // exp with this team
   tenure_over_500: number; // mimics career win pct
   tenure_w_plyf: number;
+  tenure_coy_share:number;
+  exp_coy_share: number;
 
   delta_1yr_win_pct: number;
   delta_2yr_win_pct: number;
@@ -47,7 +55,15 @@ export type coachRow = {
     years: number[];
     teams: string[];
     heat: number[];
+    wins: number[];
+    losses: number[];
+    rounds: number[];
+    wins_plyf: number[];
+    losses_plyf:number[];
     win_pcts: number[];
+    coy_ranks: number[];
+    coy_shares: number[];
+    outcomes: number[];
     colors_1: string[];
     colors_2: string[];
   };
@@ -64,7 +80,12 @@ export type Database = {
       };
     };
     Views: {
-      [_ in never]: never;
+      agg_by_coach_view: {
+        Row: coachRow;
+        Insert: coachRow;
+        Update: coachRow;
+        Relationships: [];
+      };
     };
     Functions: {
       agg_by_coach: {
