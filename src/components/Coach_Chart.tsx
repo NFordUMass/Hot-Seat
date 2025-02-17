@@ -134,6 +134,9 @@ export default function Coach_Chart({
           },
         },
         stacked: true,
+        grid: {
+          display: false,
+        },
       },
       y1: {
         type: "linear",
@@ -177,6 +180,7 @@ export default function Coach_Chart({
         align: "center",
         labels: {
           filter: function (item) {
+            item.fillStyle = "rgba(220, 20, 60, 0.5)"; // Medium red (Tailwind red-600)
             return item.text == "Heat Index"; // Hide Records from legend
           },
         },

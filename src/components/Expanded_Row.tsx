@@ -185,11 +185,6 @@ export default function Expanded_Row({ history, rowData }: Props) {
                 Heat Index over Time
               </p>
               <div className="w-full text-center">
-                <p className="text-xs md:text-sm">
-                  {rowData.tenure > 1
-                    ? null
-                    : `${rowData.exp > 1 ? "Includes" : "Showing"} Vegas Expectation for 2025`}
-                </p>
                 {/* <CoachChart
                   heat={heat_spaced}
                   labels={labels_spaced}
@@ -207,6 +202,21 @@ export default function Expanded_Row({ history, rowData }: Props) {
                   colors_1={colors_1__rgb}
                   colors_2={colors_2__rgb}
                 />
+                <div className="flex flex-col gap-2 text-center">
+                  <p className="text-[0.5rem] md:text-xs text-gray-800">
+                    dotted line indicates ML prediction threshold
+                  </p>
+                  {records_spaced.length > 5 ? (
+                    <p className="text-[0.5rem] md:text-xs text-gray-800">
+                      {`records for best, worst, ${coachData.outcomes.includes(1) ? "current, and firing" : "and current"} year labeled`}
+                    </p>
+                  ) : null}
+                  {coachData.outcomes.includes(1) ? (
+                    <p className="text-[0.5rem] md:text-xs text-gray-800">
+                      black filling indicates fired
+                    </p>
+                  ) : null}
+                </div>
               </div>
             </div>
           </div>
