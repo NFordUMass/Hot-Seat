@@ -1,23 +1,20 @@
 import { useEffect, useState } from "react";
 import type { seasonRow } from "../../supabase/types";
-import { Games, Records, Plyf_Round } from "../utils/util";
+import { Games, Records, Plyf_Round, get_what_if_init } from "../utils/util";
 import SelectInput from "./helper/Select";
 import CoachImage from "./CoachImage";
 import Image_Wrapper from "./Image_Wrapper";
 
 interface Props {
   source: seasonRow[];
-  record_init: number;
-  round_init: number;
 }
 
-export default function WhatIf({
-  source,
-  record_init = 5,
-  round_init = 2,
-}: Props) {
+export default function WhatIf({ source }: Props) {
   const [row_index, setRow_Index] = useState(Math.floor(Math.random() * 32));
   var row = source[row_index];
+  const init = get_what_if_init(row.id);
+  const record_init = init.record;
+  const round_init = init.round;
   const [inputs, setInputs] = useState({});
   const [record, setRecord] = useState(record_init);
   const [round, setRound] = useState(round_init);

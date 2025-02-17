@@ -27,8 +27,6 @@ if (supabase) {
   coaches = temp as coachRow[];
   heat_index = data;
 }
-
-const [round, record] = get_random_input();
 ---
 
 <Layout title="Hot Seat">
@@ -53,8 +51,6 @@ const [round, record] = get_random_input();
                 source={
                   heat_index ? heat_index.filter((row) => row.year == 2025) : []
                 }
-                round_init={round}
-                record_init={record}
                 client:only
               />
             </div>
