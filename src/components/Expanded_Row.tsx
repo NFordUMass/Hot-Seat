@@ -152,7 +152,9 @@ export default function Expanded_Row({ history, rowData }: Props) {
             <div className="w-full md:w-1/5 flex flex-col justify-center items-center text-center">
               {/* Coach Image */}
               <div className="order-2 md:order-1">
-                <CoachImage rowData={rowData} />
+                <div className="w-full flex justify-center">
+                  <CoachImage rowData={rowData} />
+                </div>
               </div>
               {/* Coach Info */}
               <div className="order-1 md:order-2">

@@ -13,6 +13,7 @@ interface Props {
   border_color: string;
   helper: string;
   font_size?: string;
+  label_font_size?: string;
   minWidth?: string;
   onChange: (event: SelectChangeEvent) => void;
 }
@@ -26,6 +27,7 @@ export default function SelectInput({
   border_color = "white",
   helper = "",
   font_size = "1.25rem",
+  label_font_size = "0.75rem",
   minWidth = "10rem",
   onChange,
 }: Props) {
@@ -50,7 +52,7 @@ export default function SelectInput({
       >
         <InputLabel
           id="demo-simple-select-helper-label"
-          sx={{ color: text_color, fontSize: "0.75rem" }}
+          sx={{ color: text_color, fontSize: label_font_size }}
         >
           {name}
         </InputLabel>
@@ -64,6 +66,9 @@ export default function SelectInput({
             color: text_color,
             borderColor: text_color,
             fontSize: font_size,
+            "& .MuiSelect-icon": {
+              color: text_color, // Change arrow color
+            },
           }}
         >
           {options.map((option, i) => (

@@ -3,6 +3,7 @@ import type { seasonRow } from "../../supabase/types";
 import { Games, Records, Plyf_Round } from "../utils/util";
 import SelectInput from "./helper/Select";
 import CoachImage from "./CoachImage";
+import Image_Wrapper from "./Image_Wrapper";
 
 interface Props {
   source: seasonRow[];
@@ -20,7 +21,8 @@ export default function WhatIf({
   const [inputs, setInputs] = useState({});
   const [record, setRecord] = useState(record_init);
   const [round, setRound] = useState(round_init);
-  const [result, setResult] = useState(null);
+  const [result, setResult] = useState<number | null>(null);
+  const [loading, setLoading] = useState(false);
 
   // TODO: add exp coy_share
   useEffect(() => {
@@ -58,6 +60,7 @@ export default function WhatIf({
 
   const handleClick = () => {
     const featureArray = Object.values(inputs); // Create array of features
+    setLoading(true);
 
     fetch("https://hot-seat-backend.onrender.com/predict", {
       method: "POST",
@@ -67,27 +70,35 @@ export default function WhatIf({
       body: JSON.stringify({ features: featureArray }),
     })
       .then((response) => response.json())
-      .then((response) => setResult(response["prediction"][0][1]));
+      .then((response) => {
+        setResult(response["prediction"][0][1]);
+        setTimeout(() => {
+          setLoading(false);
+        }, 750);
+      });
   };
 
   return row ? (
     <div className="flex flex-row">
       <div className="w-1/2">
-        <p className="text-xs md:text-lg lg:text-2xl py-1">{`in ${row.year}-${(row.year + 1) % 100},`}</p>
-        <div className="flex flex-row gap-2 py-1 items-center">
+        <p className="text-xs md:text-lg lg:text-2xl py-1">{`Next Season, `}</p>
+        <div className="flex flex-row gap-2 py-1 md:py-2 items-center">
           <SelectInput
             name="Coach"
             value={row_index}
             id="coach"
             border_color="white"
             text_color="white"
+            font_size={`max(1vw, 0.75rem)`}
+            label_font_size={`max(0.75vw, 0.75rem)`}
+            minWidth={`10vw`}
             options={source.map((row) => row.name)}
             helper=""
             onChange={(event) => setRow_Index(parseInt(event.target.value))}
           />
           <p className="text-xs md:text-lg lg:text-2xl">{" goes "}</p>
         </div>
-        <div className="flex flex-row gap-2 py-1 items-center">
+        <div className="flex flex-row gap-2 py-1 md:py-2 items-center">
           <SelectInput
             name="Record"
             value={record}
@@ -95,6 +106,9 @@ export default function WhatIf({
             options={Records}
             border_color="white"
             text_color="white"
+            font_size={`max(1vw, 0.75rem)`}
+            label_font_size={`max(0.75vw, 0.75rem)`}
+            minWidth={`5vw`}
             helper=""
             onChange={(event) => {
               setRecord(parseInt(event.target.value));
@@ -113,6 +127,9 @@ export default function WhatIf({
             options={Plyf_Round}
             border_color="white"
             text_color="white"
+            font_size={`max(1vw, 0.75rem)`}
+            label_font_size={`max(0.75vw, 0.75rem)`}
+            minWidth={`8vw`}
             helper=""
             onChange={(event) => {
               setRound(parseInt(event.target.value));
@@ -124,16 +141,15 @@ export default function WhatIf({
         {/* Unreasonable message */}
         {/* Engine */}
         {/* Call Model */}
-        <div>
-          <button onClick={handleClick}>Run Engine</button>
-          <br />
-          {`Predicted Heat Index: ${result !== null ? result : "Loading..."}`}
-        </div>
         {/* Take features as input */}
         {/* Have precomputed suggested feature values */}
       </div>
       <div className="w-1/2">
-        <CoachImage rowData={row} />
+        <Image_Wrapper
+          rowData={row}
+          heat={result !== null ? result.toFixed(2) : "Loading..."}
+          loading={loading}
+        />
       </div>
     </div>
   ) : (

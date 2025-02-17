@@ -28,49 +28,52 @@ export default function Heat_Table({ mode, coachRows, source }: Props) {
 
   return (
     // TODO: header row scaling with text overflow of coach name
-    <table className="w-full text-left bg-white text-black rounded-lg">
-      <thead>
-        <tr className="text-sm md:text-base lg:text-xl border-b">
-          {[
-            { key: "year", label: "Year" },
-            { key: "team", label: "Team" },
-            { key: "name", label: "Coach" },
-            { key: "prob", label: "Heat Index" },
-            { key: "fired", label: "Outcome" },
-          ].map((col) => (
-            <th
-              key={`label_${col.key}`}
-              className="px-0.5 "
-              onClick={() =>
-                handleSort({
-                  data: coaches,
-                  setData: setCoaches,
-                  sorted: sorted,
-                  setSorted: setSorted,
-                  key: col.key as sortkey,
-                  natural: col.key == "name" ? "desc" : "asc",
-                })
+    <div className="w-full overflow-x-auto">
+      <table className="max-w-full text-left bg-white text-black rounded-lg">
+        <thead>
+          <tr className="text-sm md:text-base lg:text-xl border-b">
+            {[
+              { key: "year", label: "Year" },
+              { key: "team", label: "Team" },
+              { key: "name", label: "Coach" },
+              { key: "prob", label: "Heat Index" },
+              { key: "fired", label: "Outcome" },
+            ].map((col) => (
+              <th
+                key={`label_${col.key}`}
+                className="px-2 whitespace-nowrap"
+                onClick={() =>
+                  handleSort({
+                    data: coaches,
+                    setData: setCoaches,
+                    sorted: sorted,
+                    setSorted: setSorted,
+                    key: col.key as sortkey,
+                    natural: col.key == "name" ? "desc" : "asc",
+                  })
+                }
+              >
+                {col.label}
+              </th>
+            ))}
+            <th className="px-2 whitespace-nowrap">+/-</th>
+          </tr>
+        </thead>
+        <tbody>
+          {coaches?.map((row) => (
+            <Row
+              history={
+                coachRows.find((coach) => coach.id == row.id) ??
+                ({} as coachRow)
               }
-            >
-              {col.label}
-            </th>
+              key={`${row.id}_${row.year}`}
+              rowData={row}
+              expanded={expanded}
+              setExpanded={setExpanded}
+            />
           ))}
-          <th className="px-0.5">+/-</th>
-        </tr>
-      </thead>
-      <tbody>
-        {coaches?.map((row) => (
-          <Row
-            history={
-              coachRows.find((coach) => coach.id == row.id) ?? ({} as coachRow)
-            }
-            key={`${row.id}_${row.year}`}
-            rowData={row}
-            expanded={expanded}
-            setExpanded={setExpanded}
-          />
-        ))}
-      </tbody>
-    </table>
+        </tbody>
+      </table>
+    </div>
   );
 }
