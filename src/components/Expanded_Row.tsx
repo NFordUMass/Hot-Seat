@@ -73,7 +73,32 @@ export default function Expanded_Row({ history, rowData }: Props) {
 
   const labels_spaced: (string | null)[] = space_labels_num(
     coachData.years
-  ).map((year) => (year != null ? `'${(year % 100).toString()}` : year));
+  ).map((year) =>
+    year != null ? `'${(year % 100).toString().padStart(2, "0")}` : year
+  );
+
+  const records_spaced: string[] = space_labels_str(
+    coachData.wins.map((w, i) => `${w}-${coachData.losses[i]}`)
+  ).map((record) => (record != null ? record : ""));
+
+  const most_wins = Math.max(...coachData.win_pcts);
+  const least_wins = Math.min(...coachData.win_pcts);
+
+  const records_labels =
+    records_spaced.length <= 5
+      ? records_spaced
+      : records_spaced.map((label, i) => {
+          if (outcomes_spaced[i] == 1) {
+            return label;
+          } else if (label != "" && win_pcts_spaced[i] == most_wins) {
+            return label;
+          } else if (label != "" && win_pcts_spaced[i] == least_wins) {
+            return label;
+          } else if (i == records_spaced.length - 1) {
+            return label;
+          }
+          return "";
+        });
 
   const colors_1__rgb = space_labels_str(coachData.colors_1).map((color) =>
     color != null ? hexToRgba(color, 0.5) : "000000"
@@ -165,10 +190,19 @@ export default function Expanded_Row({ history, rowData }: Props) {
                     ? null
                     : `${rowData.exp > 1 ? "Includes" : "Showing"} Vegas Expectation for 2025`}
                 </p>
+                {/* <CoachChart
+                  heat={heat_spaced}
+                  labels={labels_spaced}
+                  win_pcts={win_pcts_spaced}
+                  colors_1={colors_1__rgb}
+                  colors_2={colors_2__rgb}
+                /> */}
                 <Coach_Chart
                   heat={heat_spaced}
                   labels={labels_spaced}
                   win_pcts={win_pcts_spaced}
+                  records={records_labels}
+                  records_all={records_spaced}
                   outcomes={outcomes_spaced}
                   colors_1={colors_1__rgb}
                   colors_2={colors_2__rgb}

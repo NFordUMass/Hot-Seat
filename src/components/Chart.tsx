@@ -78,6 +78,7 @@ export default function CoachChart({
         borderWidth: 3,
         yAxisID: "y2", // Specify the y-axis for this dataset
         minBarLength: 5,
+        hidden: true, // Set bar chart to be hidden by default
       },
     ],
   };

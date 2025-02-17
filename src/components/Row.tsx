@@ -55,7 +55,7 @@ export default function Row({
         <Expanded_Row
           rowData={rowData}
           history={
-            rowData.tenure > 1
+            rowData.tenure > 1 || rowData.year < Current_Year
               ? {
                   ...history,
                   years: history.years.filter((y) => y <= 2024),
