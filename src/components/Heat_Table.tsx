@@ -55,6 +55,7 @@ export default function Heat_Table({ mode, coachRows, source }: Props) {
               {col.label}
             </th>
           ))}
+          <th className="px-0.5">+/-</th>
         </tr>
       </thead>
       <tbody>
