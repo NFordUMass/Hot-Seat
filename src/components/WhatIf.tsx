@@ -40,6 +40,7 @@ export default function WhatIf({ source }: Props) {
       tenure_coy_share: row.tenure_coy_share,
       exp_coy_share: row.exp_coy_share,
       srs: 0,
+      ou: 0, // TODO: look at future over/under
       gm: row.gm,
       owner: row.owner,
       coy_share: 0,

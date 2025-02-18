@@ -3,7 +3,7 @@ import type { coachRow, seasonRow } from "../../supabase/types";
 export type sortkey = "name" | "team" | "prob" | "fired" | 'year';
 
 export interface Mode {
-    by: "year" | "team";
+    by: "year" | "team" | "heat";
 }
 
 export const Current_Year = 2025;
