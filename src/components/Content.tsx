@@ -26,7 +26,8 @@ export default function Content({ source, coaches }: Props) {
   return (
     <div className="h-[32em] md:h-1/3 xl:h-1/2 mx-[clamp(0.5rem,2vw,3rem)] overflow-y-scroll">
       {/* Toggle: By Year vs By Show */}
-      <div className="flex py-2 gap-4 justify-center">
+      <div className="flex py-2 gap-4 justify-center items-center">
+        <p>{"by:"}</p>
         {["year", "team"].map((filterKey) => (
           <button
             key={filterKey}
@@ -42,7 +43,7 @@ export default function Content({ source, coaches }: Props) {
               cursor: mode.by === filterKey ? "not-allowed" : "pointer",
             }}
           >
-            {`By ${filterKey.toWellFormed()}`}
+            {`${filterKey.charAt(0).toUpperCase()}${filterKey.slice(1)}`}
           </button>
         ))}
       </div>

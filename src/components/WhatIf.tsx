@@ -22,28 +22,35 @@ export default function WhatIf({ source }: Props) {
   const [loading, setLoading] = useState(false);
 
   // TODO: add exp coy_share
+  // TODO: model behavior for new coach vs existing coach
+  // new coaches would not have correct delta_1yr_win_pct, delta_1yr_plyf, delta_2yr_win_pct, delta_2yr_plyf, delta_3yr_win_pct, delta_3yr_plyf
   useEffect(() => {
     row = source[row_index];
+    const win_pct = parseInt(Records[record].split("-")[0]) / Games;
+    const w_plyf = round - 1;
     setInputs({
+      age: row.age + 1,
       round: round,
-      win_pct: parseInt(Records[record].split("-")[0]) / Games,
-      w_plyf: round - 1,
-      exp: row ? row.exp + 1 : 1,
-      tenure: row ? row.tenure + 1 : 1,
-      tenure_over_500: row ? row.tenure_over_500 + 1 : 0,
-      tenure_w_plyf: row ? row.tenure_w_plyf + round : 0,
-      tenure_coy_share: 0.2,
-      srs: 2.5,
-      gm: row ? row.gm : 1,
-      owner: row ? row.owner : 1,
-      coy_share: 0.2,
-      poc: row ? (row.poc ? 1 : 0) : 0,
-      delta_1yr_win_pct: 0,
-      delta_2yr_win_pct: 0,
-      delta_3yr_win_pct: 0,
-      delta_1yr_plyf: 0,
-      delta_2yr_plyf: 0,
-      delta_3yr_plyf: 0,
+      win_pct: win_pct,
+      w_plyf: w_plyf,
+      exp: row.exp + 1,
+      tenure: row.tenure + 1,
+      tenure_over_500: row.tenure_over_500 + 1,
+      tenure_w_plyf: row.tenure_w_plyf + round,
+      tenure_coy_share: row.tenure_coy_share,
+      exp_coy_share: row.exp_coy_share,
+      srs: 0,
+      gm: row.gm,
+      owner: row.owner,
+      coy_share: 0,
+      coy_rank: 0,
+      poc: row.poc,
+      delta_1yr_win_pct: win_pct - row.win_pct,
+      delta_2yr_win_pct: win_pct - row.delta_1yr_win_pct,
+      delta_3yr_win_pct: win_pct - row.delta_2yr_win_pct,
+      delta_1yr_plyf: round - row.round,
+      delta_2yr_plyf: round - row.delta_1yr_plyf,
+      delta_3yr_plyf: round - row.delta_2yr_plyf,
     });
     handleClick();
   }, [row_index, record, round]);
