@@ -32,7 +32,7 @@ export default function Footer() {
   const iconSize = 30;
 
   return (
-    <div className="text-center h-full w-full py-6 md:mt-6 lg:py-10">
+    <div className="text-center w-full my-6 lg:my-10">
       <p className="">Created by Noah Ford, UMass CICS &apos;26</p>
 
       <div className="flex items-center h-full w-full justify-center">

@@ -24,7 +24,7 @@ export default function Content({ source, coaches }: Props) {
   }
 
   return (
-    <div className="h-full mx-[clamp(0rem,0.5vw,3rem)] overflow-y-scroll">
+    <div className="h-full mx-[clamp(0rem,0.5vw,3rem)]">
       {/* Toggle: By Year vs By Show */}
       <div className="flex py-2 gap-4 justify-center items-center">
         <p>{"by:"}</p>

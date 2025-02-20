@@ -28,7 +28,7 @@ export default function Heat_Table({ mode, coachRows, source }: Props) {
 
   return (
     // TODO: header row scaling with text overflow of coach name
-    <div className="w-full overflow-x-auto">
+    <div className="w-full overflow-x-auto md:max-h-[1800px] max-h-[600px] overflow-y-auto">
       <table className="w-full text-left bg-white text-black rounded-lg">
         <thead>
           <tr className="text-sm lg:text-xl border-b">
