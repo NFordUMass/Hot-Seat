@@ -11,50 +11,57 @@ interface Props {
 
 export default function WhatIf({ source }: Props) {
   const [row_index, setRow_Index] = useState(Math.floor(Math.random() * 32));
-  var row = source[row_index];
-  const init = get_what_if_init(row.id);
-  const record_init = init.record;
-  const round_init = init.round;
   const [inputs, setInputs] = useState({});
-  const [record, setRecord] = useState(record_init);
-  const [round, setRound] = useState(round_init);
+  const [record, setRecord] = useState(0);
+  const [round, setRound] = useState(0);
   const [result, setResult] = useState<number | null>(null);
   const [loading, setLoading] = useState(false);
 
-  // TODO: add exp coy_share
-  // TODO: model behavior for new coach vs existing coach
-  // new coaches would not have correct delta_1yr_win_pct, delta_1yr_plyf, delta_2yr_win_pct, delta_2yr_plyf, delta_3yr_win_pct, delta_3yr_plyf
+  // Initialize record and round when row_index changes
   useEffect(() => {
-    row = source[row_index];
-    const win_pct = parseInt(Records[record].split("-")[0]) / Games;
+    const row = source[row_index];
+    const init = get_what_if_init(row.id);
+    setRecord(init.record);
+    setRound(init.round);
+  }, [row_index, source]);
+
+  // Update inputs when row_index, record, or round changes
+  useEffect(() => {
+    const currentRow = source[row_index];
+    const wins = parseInt(Records[record].split("-")[0]);
+    const win_pct = wins / Games;
     const w_plyf = round - 1;
+    const srs = (win_pct - 0.5) * 8;
+
     setInputs({
-      age: row.age + 1,
+      age: currentRow.age,
       round: round,
       win_pct: win_pct,
       w_plyf: w_plyf,
-      exp: row.exp + 1,
-      tenure: row.tenure + 1,
-      tenure_over_500: row.tenure_over_500 + 1,
-      tenure_w_plyf: row.tenure_w_plyf + round,
-      tenure_coy_share: row.tenure_coy_share,
-      exp_coy_share: row.exp_coy_share,
-      srs: 0,
-      ou: 0, // TODO: look at future over/under
-      gm: row.gm,
-      owner: row.owner,
+      exp: currentRow.exp == 1 ? 1 : currentRow.exp + 1,
+      tenure: currentRow.tenure == 1 ? 1 : currentRow.tenure + 1,
+      tenure_over_500: currentRow.tenure_over_500 + 1,
+      tenure_w_plyf: currentRow.tenure_w_plyf + (wins * 2 - Games),
+      tenure_coy_share: currentRow.tenure_coy_share,
+      exp_coy_share: currentRow.exp_coy_share,
+      srs: srs,
+      ou: Number((win_pct * Games - currentRow.ou_line).toFixed(1)),
+      gm: currentRow.gm,
+      owner: currentRow.owner,
       coy_share: 0,
       coy_rank: 0,
-      poc: row.poc,
-      delta_1yr_win_pct: win_pct - row.win_pct,
-      delta_2yr_win_pct: win_pct - row.delta_1yr_win_pct,
-      delta_3yr_win_pct: win_pct - row.delta_2yr_win_pct,
-      delta_1yr_plyf: round - row.round,
-      delta_2yr_plyf: round - row.delta_1yr_plyf,
-      delta_3yr_plyf: round - row.delta_2yr_plyf,
+      poc: currentRow.poc,
+      delta_1yr_win_pct: win_pct - currentRow.win_pct,
+      delta_2yr_win_pct:
+        win_pct - (currentRow.win_pct - currentRow.delta_1yr_win_pct),
+      delta_3yr_win_pct:
+        win_pct - (currentRow.win_pct - currentRow.delta_2yr_win_pct),
+      delta_1yr_plyf: round - currentRow.round,
+      delta_2yr_plyf: round - (currentRow.round - currentRow.delta_1yr_plyf),
+      delta_3yr_plyf: round - (currentRow.round - currentRow.delta_2yr_plyf),
     });
     handleClick();
-  }, [row_index, record, round]);
+  }, [row_index, record, round, source]);
 
   const changeInputs = (key: string, value: number) => {
     setInputs({
@@ -64,29 +71,39 @@ export default function WhatIf({ source }: Props) {
   };
 
   const handleClick = () => {
-    const featureArray = Object.values(inputs); // Create array of features
     setLoading(true);
+    const timeout = 1000;
+    const startTime = Date.now();
 
     fetch("https://hot-seat-backend.onrender.com/predict", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ features: featureArray }),
+      body: JSON.stringify({
+        features: Object.values(inputs),
+        named_features: inputs,
+      }),
     })
       .then((response) => response.json())
       .then((response) => {
         setResult(response["prediction"][0][1]);
+        const elapsedTime = Date.now() - startTime;
+        const remainingTime = Math.max(0, timeout - elapsedTime);
+
         setTimeout(() => {
           setLoading(false);
-        }, 750);
+        }, remainingTime);
       });
   };
 
-  return row ? (
+  const currentRow = source[row_index];
+  if (!currentRow) return null;
+
+  return (
     <div className="flex flex-row">
       <div className="w-1/2">
-        <p className="text-xs md:text-lg lg:text-2xl py-1">{`Next Season, `}</p>
+        <p className="text-xs md:text-base xl:text-lg 3xl:text-2xl py-1">{`Next Season, `}</p>
         <div className="flex flex-row gap-2 py-1 md:py-2 items-center">
           <SelectInput
             name="Coach"
@@ -101,7 +118,7 @@ export default function WhatIf({ source }: Props) {
             helper=""
             onChange={(event) => setRow_Index(parseInt(event.target.value))}
           />
-          <p className="text-xs md:text-lg lg:text-2xl">{" goes "}</p>
+          <p className="text-xs md:text-base xl:text-lg 3xl:text-2xl py-1">{`goes `}</p>
         </div>
         <div className="flex flex-row gap-2 py-1 md:py-2 items-center">
           <SelectInput
@@ -124,7 +141,7 @@ export default function WhatIf({ source }: Props) {
               );
             }}
           />
-          <p className="text-xs md:text-lg lg:text-2xl">{" and "}</p>
+          <p className="text-xs md:text-base xl:text-lg 3xl:text-2xl py-1">{` and `}</p>
           <SelectInput
             name="Playoff Result"
             value={round}
@@ -142,22 +159,14 @@ export default function WhatIf({ source }: Props) {
             }}
           />
         </div>
-
-        {/* Unreasonable message */}
-        {/* Engine */}
-        {/* Call Model */}
-        {/* Take features as input */}
-        {/* Have precomputed suggested feature values */}
       </div>
       <div className="w-1/2">
         <Image_Wrapper
-          rowData={row}
+          rowData={currentRow}
           heat={result !== null ? result.toFixed(2) : "Loading..."}
           loading={loading}
         />
       </div>
     </div>
-  ) : (
-    ""
   );
 }

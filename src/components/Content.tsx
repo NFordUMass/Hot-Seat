@@ -24,7 +24,7 @@ export default function Content({ source, coaches }: Props) {
   }
 
   return (
-    <div className="h-[32em] md:h-1/3 xl:h-1/2 mx-[clamp(0.5rem,2vw,3rem)] overflow-y-scroll">
+    <div className="h-full mx-[clamp(0rem,0.5vw,3rem)] overflow-y-scroll">
       {/* Toggle: By Year vs By Show */}
       <div className="flex py-2 gap-4 justify-center items-center">
         <p>{"by:"}</p>
@@ -90,7 +90,7 @@ export default function Content({ source, coaches }: Props) {
           .filter((row) =>
             mode.by != "heat"
               ? row[mode.by] == (mode.by == "year" ? year : team)
-              : row.prob > 0.5
+              : true
           )
           .sort((row1, row2) =>
             mode.by != "heat"

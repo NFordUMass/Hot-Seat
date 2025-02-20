@@ -64,9 +64,9 @@ export default function Coach_Chart({
         backgroundColor: outcomes.map((outcome, i) =>
           outcome != null && heat[i] != null
             ? outcome == 0
-              ? `rgba(220, 20, 60, ${Math.sqrt(heat[i] || 0.3)})`
+              ? `rgba(220, 20, 60, ${Math.sqrt(heat[i] || 0.1)})`
               : "rgba(0, 0, 0, 1)"
-            : `rgba(220, 20, 60, ${Math.sqrt(heat[i] || 0.3)})`
+            : `rgba(220, 20, 60, ${Math.sqrt(heat[i] || 0.1)})`
         ),
         minBarLength: 5,
         yAxisID: "y1",

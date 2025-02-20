@@ -55,6 +55,7 @@ export type seasonRow = {
   color1: string;
   color2: string;
   ou_line: number;
+  win_pct_proj:number;
 }
 
 export type coachRow = {

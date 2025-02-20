@@ -67,8 +67,9 @@ export default function Expanded_Row({ history, rowData }: Props) {
     coachData.outcomes
   );
 
+  // TODO: sus
   const win_pcts_spaced: (number | null)[] = space_labels_num(
-    coachData.win_pcts
+    rowData.tenure > 1 ? coachData.win_pcts : [rowData.win_pct_proj]
   );
 
   const labels_spaced: (string | null)[] = space_labels_num(

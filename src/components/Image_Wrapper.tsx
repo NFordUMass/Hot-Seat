@@ -17,12 +17,12 @@ export default function Image_Wrapper({ rowData, heat, loading }: Props) {
       <div className="relative w-fit">
         <CoachImage rowData={rowData} />
         <div className="absolute top-4 left-4">
-          <p className="text-base md:text-lg lg:text-2xl">
-            Projected Heat Index
+          <p className="text-[clamp(0.5rem,1.25vw,1.5rem)]">
+            Projected Heat <span className="hidden 3xl:inline">Index</span>
           </p>
           <div>
             <p
-              className={`font-bold ${heat === "Loading..." || loading ? "animate-pulse text-4xl text-white" : "text-8xl"}`}
+              className={`font-bold ${heat === "Loading..." || loading ? "animate-pulse text-2xl 3xl:text-4xl text-white" : "text-6xl 3xl:text-8xl"}`}
               style={{
                 color:
                   heat === "Loading..." || loading
