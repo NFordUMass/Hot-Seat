@@ -13,6 +13,7 @@ interface Props {
   border_color: string;
   helper: string;
   font_size?: string;
+  label_font_size?: string;
   minWidth?: string;
   onChange: (event: SelectChangeEvent) => void;
 }
@@ -25,8 +26,9 @@ export default function SelectInput({
   text_color,
   border_color = "white",
   helper = "",
-  font_size = "1.25rem",
-  minWidth = "10rem",
+  font_size = "clamp(0.75rem, 1vw, 1.25rem)",
+  label_font_size = "clamp(0.5rem, 0.75vw, 0.75rem)",
+  minWidth = "clamp(8rem, 10vw, 12rem)",
   onChange,
 }: Props) {
   return (
@@ -50,7 +52,10 @@ export default function SelectInput({
       >
         <InputLabel
           id="demo-simple-select-helper-label"
-          sx={{ color: text_color, fontSize: "0.75rem" }}
+          sx={{
+            color: text_color,
+            fontSize: label_font_size,
+          }}
         >
           {name}
         </InputLabel>
@@ -64,15 +69,27 @@ export default function SelectInput({
             color: text_color,
             borderColor: text_color,
             fontSize: font_size,
+            "& .MuiSelect-icon": {
+              color: text_color,
+              fontSize: `clamp(1rem, 1.25vw, 1.5rem)`, // Scale down arrow icon
+            },
           }}
         >
           {options.map((option, i) => (
-            <MenuItem value={i} key={`${id}_${i}`}>
+            <MenuItem
+              value={i}
+              key={`${id}_${i}`}
+              sx={{
+                fontSize: font_size, // Match parent font size
+              }}
+            >
               {option}
             </MenuItem>
           ))}
         </Select>
-        <FormHelperText sx={{ color: text_color }}>{helper}</FormHelperText>
+        <FormHelperText sx={{ color: text_color, fontSize: label_font_size }}>
+          {helper}
+        </FormHelperText>
       </FormControl>
     </div>
   );

@@ -8,30 +8,69 @@ export type Json =
 
 
 export type seasonRow = {
+  // IDENTIFIERS
   id: string;
   year: number;
   name: string;
-  age: number;
   team: string; // image path team abbrev
   tm: string; // display team abbrev
-  color1: string;
-  color2: string;
 
+  // PREDICTION
   prob: number; // heat index score
   fired: number; // actual result 1 if fired
   pred: number; // ML prediction, 1 if fired
 
-  win_pct: number;
-  wins:number;
-  losses:number;
+  // FEATURES
+  age: number;
+  poc:boolean; // person of color
+
   round: number; // playoff round 1 to 5
+  win_pct: number;
   w_plyf: number;
-  l_plyf: number;
   coy_share: number; // % of coach of year vote received
+  coy_rank: number; // rank of coach of year vote
   srs: number; // simple rating system, approx strength of team
   gm: number; // how many gms in current tenure
   owner: number; // how many owners in current tenure
+  ou: number; // how much team outperformed over/under
+
+  exp: number; // total years coaching
+  tenure: number; // exp with this team
+  tenure_over_500: number; // mimics career win pct
+  tenure_w_plyf: number;
+  tenure_coy_share:number;
+  exp_coy_share: number;
+
+  delta_1yr_win_pct: number;
+  delta_2yr_win_pct: number;
+  delta_3yr_win_pct: number;
+  delta_1yr_plyf: number; // change in playoff round from this year to 1 yr ago
+  delta_2yr_plyf: number;
+  delta_3yr_plyf: number;
+
+  // MISC
+  wins:number;
+  losses:number;
+  l_plyf: number;
+  color1: string;
+  color2: string;
+  ou_line: number;
+  win_pct_proj:number;
+}
+
+export type inputData = {
+  // FEATURES
+  age: number;
   poc:boolean; // person of color
+
+  round: number; // playoff round 1 to 5
+  win_pct: number;
+  w_plyf: number;
+  coy_share: number; // % of coach of year vote received
+  coy_rank: number; // rank of coach of year vote
+  srs: number; // simple rating system, approx strength of team
+  gm: number; // how many gms in current tenure
+  owner: number; // how many owners in current tenure
   ou: number; // how much team outperformed over/under
 
   exp: number; // total years coaching

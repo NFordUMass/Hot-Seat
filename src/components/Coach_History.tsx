@@ -89,77 +89,79 @@ export default function Coach_History({ history }: Props) {
   );
 
   return (
-    <table className="w-full border-collapse text-center text-xs md:text-sm lg:text-base">
-      <thead>
-        <tr className="py-0 my-0">
-          {[
-            { span: 3, text: "" },
-            { span: 2, text: "Playoffs" },
-            { span: 2, text: "" },
-          ].map((header, index) => (
-            <th
-              className={`text-xs md:text-sm py-0 my-0 text-center font-normal ${index === 1 ? "border border-black" : ""}`}
-              key={`header_${index}`}
-              colSpan={header.span}
-            >
-              {header.text}
-            </th>
-          ))}
-        </tr>
-        <tr>
-          {["Team", "W", "L", "W", "L", "from", "to"].map((col, index) => (
-            <th
-              className="border border-black p-1 md:px-4 md:py-2"
-              key={`${col}_${index}`}
-            >
-              {col}
-            </th>
-          ))}
-        </tr>
-      </thead>
-      <tbody>
-        {rows.map((row, index) => (
-          <tr
-            className={`border border-black ${index === rows.length - 1 ? "my-0 py-0" : ""}`}
-            key={index}
-            style={{}}
-          >
-            <td
-              className={`border border-black px-1 ${index === rows.length - 1 ? "my-0 py-0" : "my-2 py-2"}`}
-            >
-              {index == rows.length - 1 ? (
-                "Total"
-              ) : (
-                <div className="flex flex-row items-center gap-1">
-                  <img
-                    src={imgPath("nfl", row.team, 2024)}
-                    className="w-6 lg:w-8"
-                    alt={row.team}
-                  />
-                  <p className="text-xs md:text-sm lg:text-base">
-                    {`${row.duration} yr${row.duration <= 1 ? "" : "s"}.`}
-                  </p>
-                </div>
-              )}
-            </td>
+    <div className="w-full overflow-x-auto">
+      <table className="min-w-full border-collapse text-center text-xs md:text-sm lg:text-base">
+        <thead>
+          <tr className="py-0 my-0">
             {[
-              row.wins,
-              row.losses,
-              row.wins_plyf,
-              row.losses_plyf,
-              row.start,
-              row.stop,
-            ].map((value, i) => (
-              <td
-                className={`${index === rows.length - 1 ? "my-1 py-1" : "my-2 py-2"}`}
-                key={`row_${value}_${i}`}
+              { span: 3, text: "" },
+              { span: 2, text: "Playoffs" },
+              { span: 2, text: "" },
+            ].map((header, index) => (
+              <th
+                className={`text-xs md:text-sm py-0 my-0 text-center font-normal ${index === 1 ? "border border-black" : ""}`}
+                key={`header_${index}`}
+                colSpan={header.span}
               >
-                {value}
-              </td>
+                {header.text}
+              </th>
             ))}
           </tr>
-        ))}
-      </tbody>
-    </table>
+          <tr>
+            {["Team", "W", "L", "W", "L", "from", "to"].map((col, index) => (
+              <th
+                className="border border-black p-1 md:px-2 md:py-1"
+                key={`${col}_${index}`}
+              >
+                {col}
+              </th>
+            ))}
+          </tr>
+        </thead>
+        <tbody>
+          {rows.map((row, index) => (
+            <tr
+              className={`border border-black ${index === rows.length - 1 ? "my-0 py-0" : ""}`}
+              key={index}
+              style={{}}
+            >
+              <td
+                className={`border border-black px-1 ${index === rows.length - 1 ? "my-0 py-0" : "my-1 py-1"}`}
+              >
+                {index == rows.length - 1 ? (
+                  "Total"
+                ) : (
+                  <div className="flex flex-row items-center gap-1">
+                    <img
+                      src={imgPath("nfl", row.team, 2024)}
+                      className="w-4 lg:w-6"
+                      alt={row.team}
+                    />
+                    <p className="text-xs md:text-sm">
+                      {`${row.duration} yr${row.duration <= 1 ? "" : "s"}.`}
+                    </p>
+                  </div>
+                )}
+              </td>
+              {[
+                row.wins,
+                row.losses,
+                row.wins_plyf,
+                row.losses_plyf,
+                row.start,
+                row.stop,
+              ].map((value, i) => (
+                <td
+                  className={`${index === rows.length - 1 ? "my-0 py-0" : "my-1 py-1"}`}
+                  key={`row_${value}_${i}`}
+                >
+                  {value}
+                </td>
+              ))}
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
   );
 }

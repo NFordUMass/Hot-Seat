@@ -6,6 +6,8 @@ import Content from "../components/Content";
 import WhatIf from "../components/WhatIf";
 import type { coachRow, seasonRow } from "../../supabase/types";
 import { Games, get_random_input } from "../utils/util";
+import How_It_Works from "../components/How_It_Works";
+import Footer from "../components/Footer";
 
 export const prerender = false;
 
@@ -27,39 +29,48 @@ if (supabase) {
   coaches = temp as coachRow[];
   heat_index = data;
 }
-
-const [round, record] = get_random_input();
 ---
 
 <Layout title="Hot Seat">
   {
     supabase ? (
       heat_index ? (
-        <>
-          <div class="flex flex-col md:flex-row gap-4">
+        <div class="min-h-screen flex flex-col">
+          <div class="flex flex-col md:flex-row gap-4 flex-grow">
             {/* Hot Seat Standings */}
-            <div class="w-full md:w-1/2">
-              <h1 class="my-2 text-2xl md:text-4xl text-center font-bold">
-                Who is on the Hot Seat of NFL Head Coaches?
+            <div class="w-full md:w-1/2 overflow-y-scroll">
+              <h1 class="my-2 text-2xl md:text-4xl lg:text-5xl xl:text-6xl text-center font-bold">
+                Who is on the Hot Seat?
               </h1>
               <Content source={heat_index} coaches={coaches} client:only />
             </div>
             {/* What If Engine*/}
-            <div class="w-full md:w-1/2">
-              <h1 class="my-2 text-2xl md:text-4xl text-center font-bold">
+            <div class="w-full md:w-1/2 overflow-y-scroll">
+              <h1 class="my-2 text-2xl md:text-4xl lg:text-5xl xl:text-6xl text-center font-bold">
                 What If?
               </h1>
               <WhatIf
                 source={
-                  heat_index ? heat_index.filter((row) => row.year == 2025) : []
+                  heat_index
+                    ? heat_index
+                        .filter((row) => row.year == 2025)
+                        .sort((a, b) => a.name.localeCompare(b.name))
+                    : []
                 }
-                round_init={round}
-                record_init={record}
                 client:only
               />
+              <div>
+                <h1 class="my-2 text-2xl md:text-4xl lg:text-5xl xl:text-6xl text-center font-bold">
+                  How Does it Work?
+                  <How_It_Works />
+                </h1>
+              </div>
             </div>
           </div>
-        </>
+          <div class="mt-auto">
+            <Footer client:only />
+          </div>
+        </div>
       ) : (
         <Alert
           title="Oh no!"

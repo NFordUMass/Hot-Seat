@@ -19,7 +19,7 @@ export default function Row({
   return (
     <React.Fragment key={`${rowData.id}_${rowData.year}`}>
       <tr
-        className={`border-b border-neutral-600 ${rowData.fired ? "bg-red-500" : "bg-inherit"}`}
+        className={`border-b border-neutral-600 ${rowData.fired ? "bg-[rgba(220,20,60,0.5)]" : "bg-inherit"}`}
         onClick={() =>
           expanded == `${rowData.id}_${rowData.year}`
             ? setExpanded("")
@@ -49,6 +49,9 @@ export default function Row({
               ? "Fired"
               : "Safe"
             : "TBD"}
+        </td>
+        <td className="text-lg md:text-2xl">
+          {expanded == `${rowData.id}_${rowData.year}` ? "-" : "+"}
         </td>
       </tr>
       {expanded == `${rowData.id}_${rowData.year}` && (

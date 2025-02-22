@@ -3,7 +3,7 @@ import type { coachRow, seasonRow } from "../../supabase/types";
 export type sortkey = "name" | "team" | "prob" | "fired" | 'year';
 
 export interface Mode {
-    by: "year" | "team";
+    by: "year" | "team" | "heat";
 }
 
 export const Current_Year = 2025;
@@ -18,6 +18,45 @@ export const Plyf_Round:string[] = [
     'Loses Super Bowl',
     'Wins Super Bowl'
 ]
+
+const What_If_Init:Map<string,{'record':number,'round':number}> = new Map<string,{'record':number,'round':number}>([
+    ['DaboBr0',{record: 9, round: 1}],
+    ['JohnBe0',{record: 4, round: 0}],
+    ['SiriNi0',{record: 7, round: 0}],
+    ['GlenAa0',{record: 4, round: 0}],
+    ['PaytSe0',{record: 7, round: 0}],
+    ['CanaDa0',{record: 3, round: 0}],
+    ['TaylZa0',{record: 9, round: 1}],
+    ['MacdMi0',{record: 4, round: 0}],
+    ['SchoBr0',{record: 10, round: 1}],
+    ['CoenLi0',{record: 4, round: 0}],
+    ['OConKe0',{record: 6, round: 0}],
+    ['McDaMi0',{record: 4, round: 0}],
+    ['TomlMi0',{record: 9, round: 1}],
+    ['RyanDe0',{record: 6, round: 0}],
+    ['CallBr0',{record: 4, round: 0}],
+    ['VrabMi0',{record: 11, round: 2}],
+    ['McDeSe0',{record: 10, round: 1}],
+    ['CampDa1',{record: 10, round: 1}],
+    ['StefKe0',{record: 5, round: 0}],
+    ['McVaSe0',{record: 5, round: 0}],
+    ['ShanKy0',{record: 7, round: 0}],
+    ['MoorKe0',{record: 5, round: 0}],
+    ['LaFlMa0',{record: 8, round: 0}],
+    ['MorrRa0',{record: 5, round: 0}],
+    ['SteiSh0',{record: 5, round: 0}],
+    ['QuinDa0',{record: 9, round: 1}],
+    ['ReidAn0',{record: 11, round: 2}],
+    ['BowlTo0',{record: 7, round: 0}],
+    ['HarbJo0',{record: 11, round: 1}],
+    ['HarbJi0',{record: 7, round: 0}],
+    ['GannJo0',{record: 8, round: 0}],
+    ['CarrPe0',{record: 5, round: 0}]
+])
+
+export function get_what_if_init(id:string):{'record':number,'round':number}{
+    return What_If_Init.has(id) ? What_If_Init.get(id) as {'record':number,'round':number} : {'record':6,'round':0};
+}
 
 const Fix_Abbrevs:Map<string,string> = new Map<string,string>(
     [['CLT','IND'],['CRD','ARI'],['GNB','GB'],['HTX','HOU'],['NWE','NE'],['OTI','TEN'],['RAI','LV'],['RAM','LAR'],['RAV','BAL'],['SDG','LAC'],['SFO','SF'],['TAM','TB']]

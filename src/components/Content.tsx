@@ -8,7 +8,7 @@ interface Props {
   coaches: any;
 }
 
-type filterKey = "year" | "team";
+type filterKey = "year" | "team" | "heat";
 
 export default function Content({ source, coaches }: Props) {
   const currentYear = 2025;
@@ -24,10 +24,11 @@ export default function Content({ source, coaches }: Props) {
   }
 
   return (
-    <div className="h-[32em] md:h-1/3 xl:h-1/2 mx-2 md:mx-4 lg:mx-12 overflow-y-scroll">
+    <div className="h-full mx-[clamp(0rem,0.5vw,3rem)]">
       {/* Toggle: By Year vs By Show */}
-      <div className="flex py-2 gap-4 justify-center">
-        {["year", "team"].map((filterKey) => (
+      <div className="flex py-2 gap-4 justify-center items-center">
+        <p>{"by:"}</p>
+        {["year", "team", "heat"].map((filterKey) => (
           <button
             key={filterKey}
             onClick={() => {
@@ -42,54 +43,62 @@ export default function Content({ source, coaches }: Props) {
               cursor: mode.by === filterKey ? "not-allowed" : "pointer",
             }}
           >
-            {`By ${filterKey.toWellFormed()}`}
+            {`${filterKey.charAt(0).toUpperCase()}${filterKey.slice(1)}`}
           </button>
         ))}
       </div>
-
+      {/* TODO: make more clear that years can be scrolled, perhaps add ... at end of scrollable div */}
       {/* Menu of Choices */}
-      <div className="text-center justify-center py-2 mx-4 md:mx-12 max-h-[75px]">
-        <div className="flex w-full overflow-x-auto flex">
-          {(mode.by == "year"
-            ? Array.from({ length: numYears }, (_, i) => currentYear - i)
-            : source
-                .filter((row) => row.year == currentYear)
-                .map((row) => get_abbrev(row.team))
-                .sort()
-          ).map((item) => (
-            <button
-              key={`button_${item}`}
-              onClick={() =>
-                mode.by == "year"
-                  ? setYear(item as number)
-                  : setTeam(get_abbrev(item as string, true) as string)
-              }
-              className="p-1 rounded-lg"
-              style={{
-                backgroundColor: (
+      {mode.by != "heat" && (
+        <div className="text-center justify-center py-2 mx-4 md:mx-12 max-h-[75px]">
+          <div className="flex w-full overflow-x-auto flex">
+            {(mode.by == "year"
+              ? Array.from({ length: numYears }, (_, i) => currentYear - i)
+              : source
+                  .filter((row) => row.year == currentYear)
+                  .map((row) => get_abbrev(row.team))
+                  .sort()
+            ).map((item) => (
+              <button
+                key={`button_${item}`}
+                onClick={() =>
                   mode.by == "year"
-                    ? item == year
-                    : get_abbrev(item as string, true) == team
-                )
-                  ? "gray"
-                  : "inherit",
-              }}
-            >
-              {item}
-            </button>
-          ))}
+                    ? setYear(item as number)
+                    : setTeam(get_abbrev(item as string, true) as string)
+                }
+                className="p-1 rounded-lg"
+                style={{
+                  backgroundColor: (
+                    mode.by == "year"
+                      ? item == year
+                      : get_abbrev(item as string, true) == team
+                  )
+                    ? "gray"
+                    : "inherit",
+                }}
+              >
+                {item}
+              </button>
+            ))}
+          </div>
         </div>
-      </div>
+      )}
       <Heat_Table
         mode={mode}
         coachRows={coaches}
         source={source
-          .filter((row) => row[mode.by] == (mode.by == "year" ? year : team))
+          .filter((row) =>
+            mode.by != "heat"
+              ? row[mode.by] == (mode.by == "year" ? year : team)
+              : true
+          )
           .sort((row1, row2) =>
-            row1[mode.by == "year" ? "prob" : "year"] <
-            row2[mode.by == "year" ? "prob" : "year"]
-              ? 1
-              : -1
+            mode.by != "heat"
+              ? row1[mode.by == "year" ? "prob" : "year"] <
+                row2[mode.by == "year" ? "prob" : "year"]
+                ? 1
+                : -1
+              : row2.prob - row1.prob
           )}
       />
     </div>
