@@ -47,7 +47,7 @@ export default function Content({ source, coaches }: Props) {
           </button>
         ))}
       </div>
-
+      {/* TODO: make more clear that years can be scrolled, perhaps add ... at end of scrollable div */}
       {/* Menu of Choices */}
       {mode.by != "heat" && (
         <div className="text-center justify-center py-2 mx-4 md:mx-12 max-h-[75px]">
