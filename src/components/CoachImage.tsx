@@ -19,7 +19,7 @@ export default function CoachImage({ rowData }: Props) {
   }, [rowData.id]);
 
   return (
-    <div className="flex justify-end">
+    <div className="relative z-0">
       <img
         src={image}
         alt={rowData.name}
