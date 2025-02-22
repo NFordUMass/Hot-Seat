@@ -34,6 +34,9 @@ export default function Image_Wrapper({ rowData, heat, loading }: Props) {
             >
               {heat === "Loading..." || loading ? "Loading..." : heat}
             </p>
+            <p className="text-[clamp(0.5rem,1.25vw,1.5rem)]">
+              Current: {rowData.prob}
+            </p>
           </div>
         </div>
       </div>

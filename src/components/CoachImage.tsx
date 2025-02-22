@@ -18,5 +18,13 @@ export default function CoachImage({ rowData }: Props) {
     fetchImage();
   }, [rowData.id]);
 
-  return <img src={image} alt={rowData.name} className="w-full" />;
+  return (
+    <div className="flex justify-end">
+      <img
+        src={image}
+        alt={rowData.name}
+        className="w-[clamp(150px,25vw,800px)]"
+      />
+    </div>
+  );
 }

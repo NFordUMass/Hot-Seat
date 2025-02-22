@@ -29,7 +29,7 @@ export default function How_It_Works() {
               'The data is from pro-football-reference.com, the model is hosted on Render and each time you change the inputs to " What If? " it is called, and this site is served on Netlify, which the url should\'ve told you already.',
           },
         ].map(({ question, content }) => (
-          <div className="2xl:p-4">
+          <div className="p-2 2xl:p-4">
             <h3 className="text-base md:text-lg lg:text-2xl xl:text-3xl 2xl:text-4xl">
               {question}
             </h3>

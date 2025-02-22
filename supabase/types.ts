@@ -58,6 +58,36 @@ export type seasonRow = {
   win_pct_proj:number;
 }
 
+export type inputData = {
+  // FEATURES
+  age: number;
+  poc:boolean; // person of color
+
+  round: number; // playoff round 1 to 5
+  win_pct: number;
+  w_plyf: number;
+  coy_share: number; // % of coach of year vote received
+  coy_rank: number; // rank of coach of year vote
+  srs: number; // simple rating system, approx strength of team
+  gm: number; // how many gms in current tenure
+  owner: number; // how many owners in current tenure
+  ou: number; // how much team outperformed over/under
+
+  exp: number; // total years coaching
+  tenure: number; // exp with this team
+  tenure_over_500: number; // mimics career win pct
+  tenure_w_plyf: number;
+  tenure_coy_share:number;
+  exp_coy_share: number;
+
+  delta_1yr_win_pct: number;
+  delta_2yr_win_pct: number;
+  delta_3yr_win_pct: number;
+  delta_1yr_plyf: number; // change in playoff round from this year to 1 yr ago
+  delta_2yr_plyf: number;
+  delta_3yr_plyf: number;
+}
+
 export type coachRow = {
     id: string;
     name: string;
