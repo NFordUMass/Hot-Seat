@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import type { inputData, seasonRow } from "../../supabase/types";
 import { Games, Records, Plyf_Round, get_what_if_init } from "../utils/util";
 import SelectInput from "./helper/Select";
@@ -53,6 +53,13 @@ export default function WhatIf({ source }: Props) {
 
   const [result, setResult] = useState<number | null>(null);
   const [loading, setLoading] = useState(false);
+  const isFirstRender = useRef(true);
+
+  useEffect(() => {
+    setTimeout(() => {
+      setResult(init.seed);
+    }, 1000);
+  }, []);
 
   // row_index changes
   useEffect(() => {
@@ -90,7 +97,11 @@ export default function WhatIf({ source }: Props) {
         delta_2yr_plyf: round - (currentRow.round - currentRow.delta_1yr_plyf),
         delta_3yr_plyf: round - (currentRow.round - currentRow.delta_2yr_plyf),
       };
-      handleClick(newInputs);
+      if (isFirstRender.current) {
+        isFirstRender.current = false;
+      } else {
+        handleClick(newInputs);
+      }
       return newInputs;
     });
   }, [row_index, source]);

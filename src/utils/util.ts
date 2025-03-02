@@ -19,43 +19,44 @@ export const Plyf_Round:string[] = [
     'Wins Super Bowl'
 ]
 
-const What_If_Init:Map<string,{'record':number,'round':number}> = new Map<string,{'record':number,'round':number}>([
-    ['DaboBr0',{record: 9, round: 1}],
-    ['JohnBe0',{record: 4, round: 0}],
-    ['SiriNi0',{record: 7, round: 0}],
-    ['GlenAa0',{record: 4, round: 0}],
-    ['PaytSe0',{record: 7, round: 0}],
-    ['CanaDa0',{record: 3, round: 0}],
-    ['TaylZa0',{record: 9, round: 1}],
-    ['MacdMi0',{record: 4, round: 0}],
-    ['SchoBr0',{record: 10, round: 1}],
-    ['CoenLi0',{record: 4, round: 0}],
-    ['OConKe0',{record: 6, round: 0}],
-    ['McDaMi0',{record: 4, round: 0}],
-    ['TomlMi0',{record: 9, round: 1}],
-    ['RyanDe0',{record: 6, round: 0}],
-    ['CallBr0',{record: 4, round: 0}],
-    ['VrabMi0',{record: 11, round: 2}],
-    ['McDeSe0',{record: 10, round: 1}],
-    ['CampDa1',{record: 10, round: 1}],
-    ['StefKe0',{record: 5, round: 0}],
-    ['McVaSe0',{record: 5, round: 0}],
-    ['ShanKy0',{record: 7, round: 0}],
-    ['MoorKe0',{record: 5, round: 0}],
-    ['LaFlMa0',{record: 8, round: 0}],
-    ['MorrRa0',{record: 5, round: 0}],
-    ['SteiSh0',{record: 5, round: 0}],
-    ['QuinDa0',{record: 9, round: 1}],
-    ['ReidAn0',{record: 11, round: 2}],
-    ['BowlTo0',{record: 7, round: 0}],
-    ['HarbJo0',{record: 11, round: 1}],
-    ['HarbJi0',{record: 7, round: 0}],
-    ['GannJo0',{record: 8, round: 0}],
-    ['CarrPe0',{record: 5, round: 0}]
-])
+const What_If_Init: Map<string, { 'record': number, 'round': number, 'seed': number }> = new Map<string, { 'record': number, 'round': number, 'seed': number }>([
+    ['BowlTo0', { record: 7, round: 0, seed: 0.18 }],
+    ['CallBr0', { record: 4, round: 0, seed: 0.18 }],
+    ['CampDa1', { record: 10, round: 1, seed: 0.03 }],
+    ['CanaDa0', { record: 3, round: 0, seed: 0.24 }],
+    ['CarrPe0', { record: 5, round: 0, seed: 0.29 }],
+    ['CoenLi0', { record: 4, round: 0, seed: 0.20 }],
+    ['DaboBr0', { record: 9, round: 1, seed: 0.04 }],
+    ['GannJo0', { record: 8, round: 0, seed: 0.20 }],
+    ['GlenAa0', { record: 4, round: 0, seed: 0.22 }],
+    ['HarbJi0', { record: 7, round: 0, seed: 0.26 }],
+    ['HarbJo0', { record: 11, round: 1, seed: 0.11 }],
+    ['JohnBe0', { record: 4, round: 0, seed: 0.28 }],
+    ['LaFlMa0', { record: 8, round: 0, seed: 0.17 }],
+    ['MacdMi0', { record: 4, round: 0, seed: 0.23 }],
+    ['McDaMi0', { record: 4, round: 0, seed: 0.27 }],
+    ['McDeSe0', { record: 10, round: 1, seed: 0.11 }],
+    ['McVaSe0', { record: 5, round: 0, seed: 0.20 }],
+    ['MoorKe0', { record: 5, round: 0, seed: 0.18 }],
+    ['MorrRa0', { record: 5, round: 0, seed: 0.19 }],
+    ['OConKe0', { record: 6, round: 0, seed: 0.20 }],
+    ['PaytSe0', { record: 7, round: 0, seed: 0.18 }],
+    ['QuinDa0', { record: 9, round: 1, seed: 0.06 }],
+    ['ReidAn0', { record: 11, round: 2, seed: 0.12 }],
+    ['RyanDe0', { record: 6, round: 0, seed: 0.20 }],
+    ['SchoBr0', { record: 10, round: 1, seed: 0.03 }],
+    ['ShanKy0', { record: 7, round: 0, seed: 0.21 }],
+    ['SiriNi0', { record: 7, round: 0, seed: 0.29 }],
+    ['StefKe0', { record: 5, round: 0, seed: 0.16 }],
+    ['SteiSh0', { record: 5, round: 0, seed: 0.20 }],
+    ['TaylZa0', { record: 9, round: 1, seed: 0.08 }],
+    ['TomlMi0', { record: 9, round: 1, seed: 0.07 }],
+    ['VrabMi0', { record: 11, round: 2, seed: 0.08 }]
+]);
 
-export function get_what_if_init(id:string):{'record':number,'round':number}{
-    return What_If_Init.has(id) ? What_If_Init.get(id) as {'record':number,'round':number} : {'record':6,'round':0};
+
+export function get_what_if_init(id:string):{'record':number,'round':number, 'seed': number}{
+    return What_If_Init.has(id) ? What_If_Init.get(id) as {'record':number,'round':number, 'seed':number} : {'record':6,'round':0, 'seed': 0.2};
 }
 
 const Fix_Abbrevs:Map<string,string> = new Map<string,string>(
