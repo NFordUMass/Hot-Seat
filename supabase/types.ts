@@ -111,7 +111,7 @@ export type coachRow = {
 export type Database = {
   public: {
     Tables: {
-      heat_index: {
+      coach_year: {
         Row: seasonRow;
         Insert: seasonRow;
         Update: seasonRow;
