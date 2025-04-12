@@ -9,3 +9,8 @@
   for = "/images/nfl/*"
   [headers.values]
     Cache-Control = "public, max-age=604800, must-revalidate"
+
+[[headers]]
+  for = "/images/coaches/*"
+  [headers.values]
+    Cache-Control = "public, max-age=604800, must-revalidate"
